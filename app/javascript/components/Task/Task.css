@@ -1,0 +1,24 @@
+.task {
+    flex: 1;
+}
+
+.task__section {
+    display: flex;
+    padding: 50px;
+    margin: 20px;
+    width: 75vw;
+    justify-content: space-evenly;
+
+}
+
+.task__header {
+    margin-right: 100px;
+}
+
+.task__completed {
+    border: solid 2px lightgreen 
+}
+
+.task__uncompleted {
+    border: solid 2px red 
+}
