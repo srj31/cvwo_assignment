@@ -54,7 +54,7 @@ function TaskItems({ task, status, handleSubmit }) {
                         <input type="text" className="form-control-plaintext" id="staticEmail2" value={newTask.description} onChange={handleChangeDescription} onKeyDown={handleKeyDown} autoFocus/>
                     </div>
                     <div className="taskItems__links">
-                        <h4> Edit </h4>
+                        {/* <h6> Edit </h6> */}
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@ function TaskItems({ task, status, handleSubmit }) {
                             {task.description}
                         </div>
                         <div className="taskItems__links">
-                            <h4 onClick={handleEdit}> Edit </h4>
+                            <h6 className="btn btn-primary" onClick={handleEdit}> Edit </h6>
                         </div>
                     </div>
                 </div>

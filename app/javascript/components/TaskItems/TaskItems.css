@@ -5,11 +5,21 @@
     margin: 20px;
     width: 75vw;
     justify-content: space-evenly;
-
+    
 }
 
 .taskItems__header {
     margin-right: 100px;
+    flex: 0.2;
+}
+
+.taskItems__body {
+    flex: 0.6;
+}
+
+.taskItems__links {
+    flex: 0.2;
+    justify-content: space-around;
 }
 
 .taskItems__completed {
