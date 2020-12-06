@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Task from "../Task/Task";
+import Tasks from "../Tasks/Tasks";
 
 const Home = () => {
 
@@ -46,8 +46,8 @@ const Home = () => {
                     </div>
                   </div>) : (
                     <div>
-                      <Task todos ={todos.uncompleted} status = {false}/>
-                      <Task todos = {todos.completed} status = {true}/>
+                      <Tasks todos ={todos.uncompleted} status = {false}/>
+                      <Tasks todos = {todos.completed} status = {true}/>
                     </div>
                   )
               }

@@ -1,8 +1,5 @@
-.task {
-    flex: 1;
-}
 
-.task__section {
+.taskItems__section {
     display: flex;
     padding: 50px;
     margin: 20px;
@@ -11,14 +8,14 @@
 
 }
 
-.task__header {
+.taskItems__header {
     margin-right: 100px;
 }
 
-.task__completed {
+.taskItems__completed {
     border: solid 2px lightgreen 
 }
 
-.task__uncompleted {
+.taskItems__uncompleted {
     border: solid 2px red 
 }
