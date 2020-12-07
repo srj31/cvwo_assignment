@@ -15,6 +15,12 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def create
+    new_todo = Task.create!(todo_params)
+    if new_todo
+      render json: { message: "New Todo Items created"}
+    else
+      render json: { message: "An error occurred while creating new"}
+    end
   end
 
   def show

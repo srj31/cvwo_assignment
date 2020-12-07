@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Tasks from "../Tasks/Tasks";
+import CreateTask from "../CreateTask/CreateTask";
 
 const Home = () => {
 
   const [todos, setTodos] = useState({});
   const [loading, setLoading] = useState(true);
+  const [toAdd, setToAdd] = useState(false);
 
   useEffect(() => {
     const url = "/api/v1/tasks/index";
@@ -25,6 +27,10 @@ const Home = () => {
       .catch(() => console.log('An error occurred while fetching the todos'));
   }, []);
 
+  const addTodo = () => {
+    setToAdd(!toAdd)
+  }
+
 
 
   return (
@@ -36,6 +42,18 @@ const Home = () => {
             <p className="lead">
               Things to do
             </p>
+            <p className={`btn ${!toAdd?"btn-success":"btn-danger"}`} onClick={addTodo}>
+              {
+                !toAdd?(
+                  <span>Add Task</span>
+                ) : (
+                  <span>Cancel</span>
+                )
+              }
+            </p>
+            {
+                toAdd && <CreateTask/>
+            }
             <hr className="my-4" />
             <div className="home_todo">
               {
