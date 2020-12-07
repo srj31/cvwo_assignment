@@ -27,11 +27,17 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def destroy
+    todo&.destroy
+    render json: { messgae: "Task Deleted"}
   end
 
   private
 
   def todo_params
     params.require(:task).permit(:id, :name, :description, :completed)
+  end
+
+  def todo
+    @todo ||= Task.find(params[:id])
   end
 end
