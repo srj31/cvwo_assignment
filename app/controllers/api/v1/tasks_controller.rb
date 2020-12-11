@@ -17,7 +17,8 @@ class Api::V1::TasksController < ApplicationController
   def create
     new_todo = Task.create!(todo_params)
     if new_todo
-      render json: { message: "New Todo Items created"}
+      # return new_todo
+      render json: { id: new_todo.id}
     else
       render json: { message: "An error occurred while creating new"}
     end

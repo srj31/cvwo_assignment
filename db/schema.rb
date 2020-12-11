@@ -10,19 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_022330) do
+ActiveRecord::Schema.define(version: 2020_12_08_031520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_tags_on_task_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "name"
-    t.text "description"
+    t.text "description", default: "No description"
     t.datetime "deadline"
-    t.string "image"
-    t.boolean "completed"
+    t.string "image", default: "https://increasify.com.au/wp-content/uploads/2016/08/default-image.png"
+    t.boolean "completed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "tags", "tasks"
 end
