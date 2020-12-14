@@ -4,7 +4,8 @@ import TaskItems from "../TaskItems/TaskItems";
 function Tasks({ todos, status }) {
   console.log(todos, status);
 
-  const handleSubmit = (body, tag) => {
+  const handleSubmit = (body) => {
+    // body.prevent.default()
     const url = `/api/v1/tasks/${body.id}`;
     const token = document.querySelector('meta[name="csrf-token"]').content;
 

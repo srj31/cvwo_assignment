@@ -4,6 +4,8 @@
   margin: 20px;
   width: 75vw;
   justify-content: space-evenly;
+  border-radius: 50px;
+  transition: all .2s ease-in-out;
 }
 
 .taskItems__header {
@@ -21,9 +23,18 @@
 }
 
 .taskItems__completed {
-  border: solid 2px lightgreen;
+  color: #14A76C;
+  border: solid 5px #14A76C;
+  box-shadow: 2px 2px 50px darkgreen;
 }
 
 .taskItems__uncompleted {
-  border: solid 2px red;
+  color: #FF652F;
+  border: solid 5px #FF652F;
+  box-shadow: 2px 2px 50px darkred;
+}
+
+.taskItems__section:hover{
+  transform: perspective(10px) translateZ(1px);
+  transition-duration: 0.5s;
 }

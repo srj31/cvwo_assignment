@@ -137,15 +137,15 @@ function TaskItems({ task, status, handleSubmit }) {
           <input
             className="form-check-input"
             type="checkbox"
-            checked={task.completed}
+            checked={newTask.completed}
             value=""
-            id={`checkbox${task.id}`}
+            id={`checkbox${newTask.id}`}
             onChange={handleChangeCompleted}
           />
         </div>
-        <div className="taskItems__header">{task.name}</div>
+        <div className="taskItems__header">{newTask.name}</div>
         <div className="taskItems__body">
-          {task.description}
+          {newTask.description}
           <Tags editing={editing} tags={tags} />
         </div>
         <div className="taskItems__links">

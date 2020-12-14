@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory ,withRouter} from "react-router-dom";
+import './Navbar.css'
 
 
 function Navbar(props) {
@@ -16,7 +17,7 @@ function Navbar(props) {
   }
 
   return (
-    <div className="navbar bg-light">
+    <div className="navbar">
       <div className="navbar_Left">
         <nav className="navbar navbar-expand-lg navbar-light">
           <a className="navbar-brand" href="/">
@@ -34,14 +35,14 @@ function Navbar(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
+            <ul className="navbar-nav" >
               <li className="nav-item active">
                 <a className="nav-link" href="/">
                   Home <span className="sr-only">(current)</span>
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" style={{color:"#ffe400"}} href="#">
                   Features
                 </a>
               </li>

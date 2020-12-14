@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Tasks from "../Tasks/Tasks";
 import CreateTask from "../CreateTask/CreateTask";
+import './Home.css'
 
 const Home = () => {
   const [todos, setTodos] = useState({});
@@ -41,7 +42,7 @@ const Home = () => {
               className={`btn ${!toAdd ? "btn-success" : "btn-danger"}`}
               onClick={addTodo}
             >
-              {!toAdd ? <span>Add Task</span> : <span>Cancel</span>}
+              {!toAdd ? <div>Add Task</div> : <span>Cancel</span>}
             </p>
             {toAdd && <CreateTask />}
             <hr className="my-4" />
