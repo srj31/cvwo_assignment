@@ -1,7 +1,7 @@
 import React from "react";
 import TaskItems from "../TaskItems/TaskItems";
 
-function Task({ todos, status }) {
+function Tasks({ todos, status }) {
   console.log(todos, status);
 
   const handleSubmit = (body, tag) => {
@@ -47,4 +47,4 @@ function Task({ todos, status }) {
   );
 }
 
-export default Task;
+export default Tasks;

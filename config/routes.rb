@@ -4,21 +4,12 @@ Rails.application.routes.draw do
       resources :tasks do
         resources :tags  
       end
+
+      get 'search/:name', to: 'tags#show'
     end
   end
   
-  # namespace :api do
-  #   namespace :v1 do
-  #     get 'tasks/index'
-  #     post 'tasks/create'
-  #     put 'tasks/update'
-  #     get '/show/:id', to: 'tasks#show'
-  #     delete '/destroy/:id', to: 'tasks#destroy'
-  #   end
-  # end
-
   
-
   # get 'home/index'
   root 'home#index'
   get '/*path' => 'home#index'
