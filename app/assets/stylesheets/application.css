@@ -74,3 +74,20 @@ html {
 .app {
     background-color: #272727;
 }
+
+.search {
+    display:flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    background-color: #272727 !important;
+    color: #747474
+}
+
+.navbar {
+    background-color: #272727;
+}
+
+.navbar-light .navbar-brand {
+    color: #ffe400 !important;
+}
