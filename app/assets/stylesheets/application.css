@@ -13,3 +13,45 @@
  *= require_tree .
  *= require_self
  */
+
+ .taskItems__section {
+    display: flex;
+    padding: 50px;
+    margin: 20px;
+    width: 75vw;
+    justify-content: space-evenly;
+    border-radius: 50px;
+    transition: all .2s ease-in-out;
+  }
+  
+  .taskItems__header {
+    margin-right: 100px;
+    flex: 0.2;
+  }
+  
+  .taskItems__body {
+    flex: 0.6;
+  }
+  
+  .taskItems__links {
+    flex: 0.2;
+    justify-content: space-around;
+  }
+  
+  .taskItems__completed {
+    color: #14A76C;
+    border: solid 5px #14A76C;
+    box-shadow: 2px 2px 50px darkgreen;
+  }
+  
+  .taskItems__uncompleted {
+    color: #FF652F;
+    border: solid 5px #FF652F;
+    box-shadow: 2px 2px 50px darkred;
+  }
+  
+  .taskItems__section:hover{
+    transform: perspective(10px) translateZ(1px);
+    transition-duration: 0.5s;
+  }
+  
