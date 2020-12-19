@@ -9,7 +9,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
 
-  useEffect(() => {
+  useEffect((e) => {
+    // e.prevent.default()
     const url = "/api/v1/tasks";
     fetch(url)
       .then((response) => {
@@ -42,7 +43,7 @@ const Home = () => {
               className={`btn ${!toAdd ? "btn-success" : "btn-danger"}`}
               onClick={addTodo}
             >
-              {!toAdd ? <div>Add Task</div> : <span>Cancel</span>}
+              {!toAdd ? <span>Add Task</span> : <span>Cancel</span>}
             </p>
             {toAdd && <CreateTask />}
             <hr className="my-4" />

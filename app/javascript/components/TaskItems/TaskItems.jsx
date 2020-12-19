@@ -86,9 +86,7 @@ function TaskItems({ task, status, handleSubmit }) {
   return editing ? (
     <div className="taskItems__editing">
       <div
-        className={`taskItems__section ${
-          status ? "taskItems__completed" : "taskItems__uncompleted"
-        }`}
+        className={`taskItems__section taskItems__inEditing`}
       >
         <div className="taskItems__checkbox">
           <input

@@ -1,15 +1,71 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "../components/Home/Home";
 import Search from "../components/Search/Search";
 import Navbar from "../components/Navbar/Navbar";
+import Login from "../components/Login/Login";
+import Signup from "../components/Signup/Signup";
 
-export default (
-  <Router>
-    <Navbar />
-    <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/api/v1/show/:name" component={Search} />
-    </Switch>
-  </Router>
-);
+function Index() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState({})
+
+  useEffect(() =>{
+    loginStatus()
+  },[isLoggedIn])
+
+  const handleLogin = (data) => {
+    console.log(data)
+    setIsLoggedIn(true)
+    setUser(data.user)
+  }
+
+  const handleLogout = () => {
+    setIsLoggedIn(false)
+    setUser({})
+  } 
+
+  const loginStatus = () => {
+    const url = "/logged_in"
+
+    fetch(url, {
+      credentials: "include"
+    })
+    .then(response => {
+      console.log(response)
+      if(response.ok) {
+        return response.json()
+      }
+      throw new Error("Network Response was not ok")
+    })
+    .then(response => {
+      console.log(response)
+      if(response.logged_in) {
+        handleLogin(response)
+      } else {
+        handleLogout()
+      }
+    })
+    .catch(error => console.log('login/logout api errors:', error))
+  }
+
+  return (
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        {/* <Route exact path='/login' component={Login}/> */}
+        <Route exact path='/login' render={(props) => (
+          <Login {...props} handleLogin={handleLogin} />
+        )}/>
+        <Route exact path='/signup' render={(props) => (
+          <Signup {...props} handleLogin={handleLogin} />
+        )}/>
+        <Route path="/api/v1/show/:name" component={Search} />
+      </Switch>
+    </Router>
+  )
+}
+
+export default Index;

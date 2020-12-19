@@ -30,7 +30,7 @@ function Tag({ editing, tag }) {
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch(() => "Error occurred while editing the tag");
   };
@@ -43,7 +43,7 @@ function Tag({ editing, tag }) {
 
   return (
     <div className="tag">
-      {console.log(newTag)}
+      {/* {console.log(newTag)} */}
       {editing ? (
         <input
           type="text"

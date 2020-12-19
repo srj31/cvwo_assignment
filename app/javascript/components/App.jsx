@@ -4,7 +4,7 @@ import './App.css'
 export default (props) => {
   return (
     <div className="app">
-      <>{Routes}</>
+      <Routes/>
     </div>
   );
 };
