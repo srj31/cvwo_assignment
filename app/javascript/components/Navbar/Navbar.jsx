@@ -32,7 +32,7 @@ function Navbar(props) {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
+          {/* <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item active">
                 <a className="nav-link" href="/">
@@ -61,7 +61,7 @@ function Navbar(props) {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
         </nav>
       </div>
 

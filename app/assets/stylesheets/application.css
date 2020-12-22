@@ -54,9 +54,11 @@ input[type=text]:focus {
 }
 
 .taskItems__links {
+  padding-left: 20px;
   flex: 0.2;
   justify-content: space-around;
 }
+
 
 
 .taskItems__inEditing {
@@ -105,4 +107,9 @@ html {
 
 .navbar-light .navbar-brand {
   color: #ffe400 !important;
+}
+
+
+.nav-link {
+  color : white !important;
 }

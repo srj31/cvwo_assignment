@@ -6,6 +6,7 @@ function TaskItems({ task, status, handleSubmit }) {
   const [editing, setEditing] = useState(false);
   const [newTask, setNewTask] = useState(task);
   const [tags, setTags] = useState({});
+  const [toDelete, setToDelete] = useState(false);
 
   useEffect(() => {
     const url = `/api/v1/tasks/${task.id}/tags`;
@@ -61,7 +62,7 @@ function TaskItems({ task, status, handleSubmit }) {
     const id = task.id;
     const url = `/api/v1/tasks/${id}`;
     const token = document.querySelector('meta[name="csrf-token"]').content;
-
+    setToDelete(true);
     fetch(url, {
       method: "DELETE",
       headers: {
@@ -117,41 +118,60 @@ function TaskItems({ task, status, handleSubmit }) {
           />
           <Tags editing={editing} tags={tags} />
         </div>
-        <div className="taskItems__links">{/* <h6> Edit </h6> */}</div>
+        <div className="taskItems__links">
+          <h6
+            className="btn btn-warning"
+            onClick={() => {
+              setEditing(false);
+              handleSubmit(newTask, tags);
+            }}
+          >
+            {" "}
+            Update{" "}
+          </h6>
+        </div>
       </div>
     </div>
   ) : (
     <div className="taskItems__normal">
-      <div
-        className={`taskItems__section ${
-          newTask.completed ? "taskItems__completed" : "taskItems__uncompleted"
-        }`}
-      >
-        <div className="taskItems__checkbox">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={newTask.completed}
-            id={`checkbox${newTask.id}`}
-            onChange={handleChangeCompleted}
-          />
+      {toDelete ? (
+        <div style={{ display: "flex", justifyContent: "center", padding: 30 }}>
+          Deleted
         </div>
-        <div className="taskItems__header">{newTask.name}</div>
-        <div className="taskItems__body">
-          {newTask.description}
-          <Tags editing={editing} tags={tags} />
+      ) : (
+        <div
+          className={`taskItems__section ${
+            newTask.completed
+              ? "taskItems__completed"
+              : "taskItems__uncompleted"
+          }`}
+        >
+          <div className="taskItems__checkbox">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              checked={newTask.completed}
+              id={`checkbox${newTask.id}`}
+              onChange={handleChangeCompleted}
+            />
+          </div>
+          <div className="taskItems__header">{newTask.name}</div>
+          <div className="taskItems__body">
+            {newTask.description}
+            <Tags editing={editing} tags={tags} />
+          </div>
+          <div className="taskItems__links">
+            <h6 className="btn btn-primary" onClick={handleEdit}>
+              {" "}
+              Edit{" "}
+            </h6>
+            <h6 className="btn btn-danger" onClick={handleDelete}>
+              {" "}
+              Delete{" "}
+            </h6>
+          </div>
         </div>
-        <div className="taskItems__links">
-          <h6 className="btn btn-primary" onClick={handleEdit}>
-            {" "}
-            Edit{" "}
-          </h6>
-          <h6 className="btn btn-danger" onClick={handleDelete}>
-            {" "}
-            Delete{" "}
-          </h6>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
