@@ -24,13 +24,12 @@ function TaskItems({ task, status, handleSubmit }) {
   }, []);
 
   const handleChangeCompleted = (event) => {
-    handleSubmit(
-      {
-        ...newTask,
-        completed: event.target.checked,
-      },
-      tags
-    );
+    setNewTask({
+      ...newTask,
+      completed: event.target.checked,
+    });
+
+    handleSubmit({ ...newTask, completed: event.target.checked }, tags);
   };
 
   const handleEdit = () => {
@@ -78,22 +77,19 @@ function TaskItems({ task, status, handleSubmit }) {
       })
       .then((response) => {
         console.log(response);
-        window.location.reload(false);
+        // window.location.reload(false);
       })
       .catch(() => "Error occurred while deleting the task");
   };
 
   return editing ? (
     <div className="taskItems__editing">
-      <div
-        className={`taskItems__section taskItems__inEditing`}
-      >
+      <div className={`taskItems__section taskItems__inEditing`}>
         <div className="taskItems__checkbox">
           <input
             className="form-check-input"
             type="checkbox"
             checked={newTask.completed}
-            value=""
             id={`checkbox${newTask.id}`}
             onChange={handleChangeCompleted}
           />
@@ -102,7 +98,7 @@ function TaskItems({ task, status, handleSubmit }) {
           <input
             type="text"
             className="form-control-plaintext"
-            id="staticEmail2"
+            id="name"
             value={newTask.name}
             onChange={handleChangeName}
             onKeyDown={handleKeyDown}
@@ -113,7 +109,7 @@ function TaskItems({ task, status, handleSubmit }) {
           <input
             type="text"
             className="form-control-plaintext"
-            id="staticEmail2"
+            id="description"
             value={newTask.description}
             onChange={handleChangeDescription}
             onKeyDown={handleKeyDown}
@@ -128,7 +124,7 @@ function TaskItems({ task, status, handleSubmit }) {
     <div className="taskItems__normal">
       <div
         className={`taskItems__section ${
-          status ? "taskItems__completed" : "taskItems__uncompleted"
+          newTask.completed ? "taskItems__completed" : "taskItems__uncompleted"
         }`}
       >
         <div className="taskItems__checkbox">
@@ -136,7 +132,6 @@ function TaskItems({ task, status, handleSubmit }) {
             className="form-check-input"
             type="checkbox"
             checked={newTask.completed}
-            value=""
             id={`checkbox${newTask.id}`}
             onChange={handleChangeCompleted}
           />

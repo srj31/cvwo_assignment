@@ -40,8 +40,10 @@ function Navbar(props) {
                 </a>
               </li>
               <li className="nav-item">
-                <Link to="/login">Login</Link>
-                <Link to="/signup">SignUp</Link>
+                <Link to="/login" className = "nav-link">Login</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/signup" className = "nav-link">Signup</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
