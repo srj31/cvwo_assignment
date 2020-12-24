@@ -42,6 +42,7 @@ function Login(props) {
           redirect();
           props.handleLogin(response);
         } else {
+          console.log(response.errors);
           setErrors(response.errors);
         }
       })
