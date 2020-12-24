@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory, withRouter, Link } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar({handleLogout}) {
+function Navbar({ handleLogout, isLoggedIn }) {
   const [tagSearch, setTagSearch] = useState("");
   let history = useHistory();
 
@@ -39,21 +39,26 @@ function Navbar({handleLogout}) {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/signup" className="nav-link">
-                  Signup
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/" className="nav-link" onClick={handleLogout}>
-                  Logout
-                </Link>
-              </li>
+              {!isLoggedIn ? (
+                <span style={{display: "flex"}}>
+                  <li className="nav-item">
+                    <Link to="/login" className="nav-link">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/signup" className="nav-link">
+                      Signup
+                    </Link>
+                  </li>
+                </span>
+              ) : (
+                <li className="nav-item">
+                  <Link to="/" className="nav-link" onClick={handleLogout}>
+                    Logout
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </nav>

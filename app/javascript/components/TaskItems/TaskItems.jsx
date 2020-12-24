@@ -158,7 +158,6 @@ function TaskItems({ task, status, handleSubmit }) {
           <div className="taskItems__header">{newTask.name}</div>
           <div className="taskItems__body">
             {newTask.description}
-            {newTask.user_id}
             <Tags editing={editing} tags={tags} />
           </div>
           <div className="taskItems__links">

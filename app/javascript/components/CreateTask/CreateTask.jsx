@@ -22,7 +22,6 @@ const CreateTask = () => {
         throw new Error("Network Response was not ok");
       })
       .then((response) => {
-        console.log(response);
         if (response.logged_in) {
           setUser(response.user);
         }
@@ -103,12 +102,10 @@ const CreateTask = () => {
           });
       })
       .then((response) => {
-        console.log(response);
         window.location.reload(false);
       })
       .catch((error) => {
         error.then((err) => {
-          console.log(JSON.parse(JSON.stringify(err.errors)));
           setErrors(JSON.parse(JSON.stringify(err.errors)));
           setHasError(true);
         });
@@ -117,7 +114,6 @@ const CreateTask = () => {
 
   return (
     <div className="createTask">
-      {console.log(errors)}
       {hasError && <ErrorComp errors = {errors}/>}
       Create a new Task
       <form className="createTask__body" onSubmit={handleSubmit}>

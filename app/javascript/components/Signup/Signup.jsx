@@ -11,7 +11,6 @@ function Signup(props) {
   let history = useHistory();
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     const user = {
       username: username,
       email: email,
@@ -90,19 +89,19 @@ function Signup(props) {
             onChange={(e) => setPassword_confirmation(e.target.value)}
           />
         </div>
+        <div
+          className="signup__buttons"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <button className="btn btn-success" type="submit">
+            Sign Up
+          </button>
+        </div>
       </form>
-      <div
-        className="signup__buttons"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <button className="btn btn-success" type="submit">
-          Sign Up
-        </button>
-      </div>
     </div>
   );
 }
