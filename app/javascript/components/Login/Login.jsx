@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
-import "./Login.css";
+import "../Login/Login.css";
 import ErrorComp from "../ErrorComp/ErrorComp";
 
 function Login(props) {
