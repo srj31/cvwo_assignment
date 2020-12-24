@@ -10,7 +10,7 @@ class Api::V1::TagsController < ApplicationController
         tagged_tasks_completed = []
         tagged_tasks_incompleted =[]
         tags.each do |tag|
-            task = Task.find_by(id: tag.task_id)
+            task = current_user.tasks.find_by(id: tag.task_id)
             if task
                 if task.completed
                     tagged_tasks_completed.push(task)
@@ -23,7 +23,7 @@ class Api::V1::TagsController < ApplicationController
     end
 
     def create
-        @task = Task.find(params[:task_id])
+        @task = current_user.tasks.find(params[:task_id])
         @tag = @task.tags.create(tag_params)
         redirect_to api_v1_tasks_path
     end

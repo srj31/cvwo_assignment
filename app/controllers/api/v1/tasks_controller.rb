@@ -1,7 +1,10 @@
 class Api::V1::TasksController < ApplicationController
+
+  before_action :correct_user, only: [:update,:destroy]
+
   def index
-    completed = Task.where(completed: true)
-    uncompleted = Task.where(completed: false).order(:id)
+    completed = current_user.tasks.where(completed: true)
+    uncompleted = current_user.tasks.where(completed: false).order(:id)
     render json: { completed: completed, uncompleted: uncompleted }
   end
 
@@ -15,12 +18,11 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def create
-    new_todo = Task.create!(todo_params)
-    if new_todo
-      # return new_todo
+    new_todo = current_user.tasks.build(todo_params)
+    if new_todo.save
       render json: { id: new_todo.id}
     else
-      render json: { message: "An error occurred while creating new"}
+      render json: { errors: new_todo.errors.full_messages}, status: 500
     end
   end
 
@@ -32,10 +34,15 @@ class Api::V1::TasksController < ApplicationController
     render json: { messgae: "Task Deleted"}
   end
 
+  def correct_user
+    @task = current_user.tasks.find_by(id: params[:id])
+    redirect_to api_v1_tasks_path, notice: "Not Authorised User" if @task.nil?
+  end
+
   private
 
   def todo_params
-    params.require(:task).permit(:id, :name, :description, :completed)
+    params.require(:task).permit(:id, :name, :description, :completed, :user_id)
   end
 
   def todo

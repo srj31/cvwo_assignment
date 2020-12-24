@@ -18,10 +18,24 @@ input[type="text"] {
   color: #ffe400;
   transition: 0.5s;
   outline: none;
+  border-bottom: 1px solid #747474;
+
 }
 
 input[type=text]:focus {
-  border: 3px solid #747474;
+  border-bottom: 3px solid #ffe400;
+}
+
+input[type="password"] {
+  color: #ffe400;
+  transition: 0.5s;
+  outline: none;
+  border-bottom: 1px solid #747474;
+
+}
+
+input[type=password]:focus {
+  border-bottom: 3px solid #ffe400;
 }
 
 .tag__body {

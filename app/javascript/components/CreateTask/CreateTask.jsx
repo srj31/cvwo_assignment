@@ -1,8 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ErrorComp from "../ErrorComp/ErrorComp";
 
 const CreateTask = () => {
   const [todo, setTodo] = useState({});
   const [tag, setTag] = useState({});
+  const [user, setUser] = useState({ id: "-1" });
+  const [hasError, setHasError] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const url = "/logged_in";
+
+    fetch(url, {
+      credentials: "include",
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network Response was not ok");
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.logged_in) {
+          setUser(response.user);
+        }
+      })
+      .catch((error) => {
+        console.log("login/logout api errors:", error);
+      });
+  }, []);
 
   const handleChangeName = (event) => {
     setTodo({
@@ -33,7 +61,7 @@ const CreateTask = () => {
     const todoBody = {
       ...todo,
       completed: false,
-      // tag: tag
+      user_id: user.id
     };
 
     const url1 = "/api/v1/tasks";
@@ -52,12 +80,10 @@ const CreateTask = () => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error("Network Response was not ok");
+        throw response.json();
       })
       .then((task) => {
-        console.log(task);
         const url2 = `/api/v1/tasks/${task.id}/tags`;
-        console.log(url2);
         fetch(url2, {
           method: "POST",
           headers: {
@@ -80,14 +106,19 @@ const CreateTask = () => {
         console.log(response);
         window.location.reload(false);
       })
-      .catch((err) => {
-        console.log("error while creating a new task");
-        console.log(err);
+      .catch((error) => {
+        error.then((err) => {
+          console.log(JSON.parse(JSON.stringify(err.errors)));
+          setErrors(JSON.parse(JSON.stringify(err.errors)));
+          setHasError(true);
+        });
       });
   };
 
   return (
     <div className="createTask">
+      {console.log(errors)}
+      {hasError && <ErrorComp errors = {errors}/>}
       Create a new Task
       <form className="createTask__body" onSubmit={handleSubmit}>
         <input
@@ -108,6 +139,12 @@ const CreateTask = () => {
           className="form-control-plaintext mr-3 my-3 py-3"
           placeholder="Todo Tag"
           onChange={handleChangeTag}
+        />
+        <input
+          type="hidden"
+          className="form-control-plaintext mr-3 my-3 py-3"
+          placeholder="User Id"
+          value={user && user.id}
         />
         <button type="submit" className="btn btn-primary col mr-2">
           Add

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory, withRouter, Link } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar(props) {
+function Navbar({handleLogout}) {
   const [tagSearch, setTagSearch] = useState("");
   let history = useHistory();
 
@@ -32,36 +32,30 @@ function Navbar(props) {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          {/* <div className="collapse navbar-collapse" id="navbarNav">
+          <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item active">
-                <a className="nav-link" href="/">
-                  Home <span className="sr-only">(current)</span>
-                </a>
+              <li className="nav-item">
+                <Link to="/" className="nav-link">
+                  Home
+                </Link>
               </li>
               <li className="nav-item">
-                <Link to="/login" className = "nav-link">Login</Link>
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
               </li>
               <li className="nav-item">
-                <Link to="/signup" className = "nav-link">Signup</Link>
+                <Link to="/signup" className="nav-link">
+                  Signup
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled"
-                  href="#"
-                  tabIndex="-1"
-                  aria-disabled="true"
-                >
-                  Disabled
-                </a>
+                <Link to="/" className="nav-link" onClick={handleLogout}>
+                  Logout
+                </Link>
               </li>
             </ul>
-          </div> */}
+          </div>
         </nav>
       </div>
 

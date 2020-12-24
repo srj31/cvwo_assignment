@@ -2,7 +2,6 @@ import React from "react";
 import TaskItems from "../TaskItems/TaskItems";
 
 function Tasks({ todos, status }) {
-  console.log(todos, status);
 
   const handleSubmit = (body) => {
     const url = `/api/v1/tasks/${body.id}`;
@@ -17,8 +16,6 @@ function Tasks({ todos, status }) {
       body: JSON.stringify(body),
     })
       .then((response) => {
-        console.log(body);
-        console.log(response);
         if (response.ok) {
           return response.json();
         }

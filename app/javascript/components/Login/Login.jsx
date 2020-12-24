@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
+import "./Login.css"
+import ErrorComp from "../ErrorComp/ErrorComp";
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -27,61 +29,68 @@ function Login(props) {
       },
       body: JSON.stringify(user),
     })
-    .then(response => {
-        console.log(response)
-        if(response.ok) {
-            return response.json();
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          return response.json();
         }
-        throw new Error("Network response was not ok")
-    })
-    .then(response => {
-        console.log(response)
-        if(response.logged_in) {
-            redirect()
-            props.handleLogin(response)
+        throw new Error("Network response was not ok");
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.logged_in) {
+          redirect();
+          props.handleLogin(response);
         } else {
-            setErrors(
-                response.errors
-            )
+          setErrors(response.errors);
         }
-
-    }).catch((error) => console.log("login was not done correctly ",error))
+      })
+      .catch((error) => console.log("login was not done correctly ", error));
   };
 
   const redirect = () => {
-      history.push('/')
-  }
+    history.push("/");
+  };
 
   return (
-    <div className="login">
-      <h1>Log In</h1>
+    <div className="login container">
+      {errors && <ErrorComp errors={errors}/>}
+      <h1 style={{ color: "#FFE400" }}>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          placeholder="username"
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          placeholder="email"
-          type="text"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          placeholder="password"
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button placeholder="submit" type="submit">
-          Log In
-        </button>
-        <div>
-          or <Link to="/signup">sign up</Link>
+        <div className="form-group">
+          <input
+            placeholder="Username"
+            className="form-control-plaintext mr-3 my-3 py-3"
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            placeholder="Email"
+            className="form-control-plaintext mr-3 my-3 py-3"
+            type="text"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            placeholder="Password"
+            className="form-control-plaintext mr-3 my-3 py-3"
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="login__buttons">
+          <button className="btn btn-success" type="submit" style={{marginBottom:20}}>
+            Log In
+          </button>
+          <span style={{ color: "#ffffff", textAlign:"center"}}>OR</span>
+          <Link to="/signup" className="btn btn-danger" style={{marginTop:20}}>
+            Sign up
+          </Link>
         </div>
       </form>
     </div>

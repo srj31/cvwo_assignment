@@ -54,7 +54,7 @@ function TaskItems({ task, status, handleSubmit }) {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setEditing(false);
-      handleSubmit(newTask, tags);
+      handleSubmit(newTask);
     }
   };
 
@@ -158,6 +158,7 @@ function TaskItems({ task, status, handleSubmit }) {
           <div className="taskItems__header">{newTask.name}</div>
           <div className="taskItems__body">
             {newTask.description}
+            {newTask.user_id}
             <Tags editing={editing} tags={tags} />
           </div>
           <div className="taskItems__links">

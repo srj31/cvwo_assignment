@@ -13,17 +13,39 @@ function Index() {
 
   useEffect(() =>{
     loginStatus()
-  },[isLoggedIn])
+  },[])
 
   const handleLogin = (data) => {
-    console.log(data)
+    // console.log(data)
     setIsLoggedIn(true)
     setUser(data.user)
   }
 
   const handleLogout = () => {
+    const url = "/logout";
     setIsLoggedIn(false)
     setUser({})
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok");
+      })
+      .then((response) => {
+        console.log(response);
+        window.location.reload(false);
+      })
+      .catch((error) => console.log("Logout was not done correctly ", error));
   } 
 
   const loginStatus = () => {
@@ -52,7 +74,7 @@ function Index() {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar handleLogout={handleLogout}/>
       <Switch>
         <Route path="/" exact component={Home} />
         {/* <Route exact path='/login' component={Login}/> */}

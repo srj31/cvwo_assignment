@@ -30,65 +30,79 @@ function Signup(props) {
       },
       body: JSON.stringify(user),
     })
-    .then(response => {
-        if(response.ok) {
-            return response.json()
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         }
-        throw new Error("Network respones was not ok")
-    })
-    .then(response => {
-        console.log(response)
-        if(response.status == "created") {
-            props.handleLogin(response)
-            redirect()
+        throw new Error("Network respones was not ok");
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status == "created") {
+          props.handleLogin(response);
+          redirect();
         } else {
-            setErrors(response.errors)
+          setErrors(response.errors);
         }
-    })
-    .catch((error) => console.log("api signup not ok: " , error))
+      })
+      .catch((error) => console.log("api signup not ok: ", error));
   };
 
   const redirect = () => {
-    history.push('/')
-  }
+    history.push("/");
+  };
 
   return (
-    <div className="signup">
-      <h1>Sign Up</h1>
+    <div className="signup container">
+      <h1 style={{ color: "#FFE400" }}>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          placeholder="username"
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          placeholder="email"
-          type="text"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          placeholder="password"
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          placeholder="password confirmation"
-          type="password"
-          name="password_confirmation"
-          value={password_confirmation}
-          onChange={(e) => setPassword_confirmation(e.target.value)}
-        />
-
-        <button placeholder="submit" type="submit">
+        <div className="form-group">
+          <input
+            placeholder="Enter Username"
+            className="form-control-plaintext mr-3 my-3 py-3"
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            placeholder="Enter Email"
+            className="form-control-plaintext mr-3 my-3 py-3"
+            type="text"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            placeholder="Password"
+            className="form-control-plaintext mr-3 my-3 py-3"
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            placeholder="Password Confirmation"
+            className="form-control-plaintext mr-3 my-3 py-3"
+            type="password"
+            name="password_confirmation"
+            value={password_confirmation}
+            onChange={(e) => setPassword_confirmation(e.target.value)}
+          />
+        </div>
+      </form>
+      <div
+        className="signup__buttons"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <button className="btn btn-success" type="submit">
           Sign Up
         </button>
-      </form>
+      </div>
     </div>
   );
 }

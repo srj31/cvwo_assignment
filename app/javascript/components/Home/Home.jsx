@@ -10,18 +10,15 @@ const Home = () => {
   const [toAdd, setToAdd] = useState(false);
 
   useEffect((e) => {
-    // e.prevent.default()
     const url = "/api/v1/tasks";
     fetch(url)
       .then((response) => {
-        // console.log(response);
         if (response.ok) {
           return response.json();
         }
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
-        // console.log(response);
         setTodos(response);
         setLoading(false);
       })
