@@ -1,0 +1,6 @@
+.login__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 0px;
+}

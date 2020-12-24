@@ -1,0 +1,8 @@
+.errorComp {
+    display: flex;
+    color: red;
+}
+
+.errorComp__body {
+    padding: 20px;
+}
