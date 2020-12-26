@@ -89,7 +89,7 @@ function Index() {
           path="/signup"
           render={(props) => <Signup {...props} handleLogin={handleLogin} />}
         />
-        <Route path="/api/v1/show/:name" component={Search} />
+        <Route exact path="/api/v1/show/:name" component={Search} />
       </Switch>
     </Router>
   );

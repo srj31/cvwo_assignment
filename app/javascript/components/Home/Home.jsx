@@ -10,7 +10,7 @@ const Home = ({ isLoggedIn, user }) => {
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
 
-  useEffect((e) => {
+  useEffect(() => {
     const url = "/api/v1/tasks";
     fetch(url)
       .then((response) => {
