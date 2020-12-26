@@ -11,7 +11,6 @@ function Navbar({ handleLogout, isLoggedIn }) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     history.push(`/api/v1/show/${tagSearch}`);
   };
 

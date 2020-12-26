@@ -11,7 +11,6 @@ function Search(props) {
 
   useEffect(() => {
     const url = `/api/v1/search/${params.name}`;
-
     fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -20,11 +19,12 @@ function Search(props) {
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
+        console.log(response);
         setTasks(response);
         setLoading(false);
       })
       .catch(() => console.log("An error occurred while fetching the todos"));
-  }, [params]);
+  }, []);
 
   return (
     <div className="search justify-content-center">
@@ -36,7 +36,6 @@ function Search(props) {
         </div>
       ) : (
         <>
-          Search results for {params.name}
           {tasks.tagged_tasks_incompleted && (
             <Tasks todos={tasks.tagged_tasks_incompleted} status={false} />
           )}
