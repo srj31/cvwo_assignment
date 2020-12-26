@@ -10,7 +10,8 @@ function Navbar({ handleLogout, isLoggedIn }) {
     setTagSearch(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     history.push(`/api/v1/show/${tagSearch}`);
   };
 

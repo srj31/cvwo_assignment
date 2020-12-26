@@ -44,7 +44,6 @@ function Index() {
       })
       .then((response) => {
         console.log(response);
-        window.location.reload(false);
       })
       .catch((error) => console.log("Logout was not done correctly ", error));
   };
@@ -78,7 +77,7 @@ function Index() {
         <Route
           path="/"
           exact
-          render={(props) => <Home {...props} isLoggedIn={isLoggedIn} />}
+          render={(props) => <Home {...props} isLoggedIn={isLoggedIn} user={user}/>}
         />
         <Route
           exact

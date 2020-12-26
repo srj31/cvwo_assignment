@@ -5,28 +5,26 @@ import CreateTask from "../CreateTask/CreateTask";
 import "./Home.css";
 import IntroPage from "../IntroPage/IntroPage";
 
-const Home = ({ isLoggedIn }) => {
+const Home = ({ isLoggedIn, user }) => {
   const [todos, setTodos] = useState({});
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
 
-  console.log(isLoggedIn)
   useEffect((e) => {
-      console.log("here")
-      const url = "/api/v1/tasks";
-      fetch(url)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Network response was not ok.");
-        })
-        .then((response) => {
-          console.log(response)
-          setTodos(response);
-          setLoading(false);
-        })
-        .catch(() => console.log("An error occurred while fetching the todos"));
+    const url = "/api/v1/tasks";
+    fetch(url)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((response) => {
+        console.log(response);
+        setTodos(response);
+        setLoading(false);
+      })
+      .catch(() => console.log("An error occurred while fetching the todos"));
   }, []);
 
   const addTodo = () => {
@@ -40,7 +38,7 @@ const Home = ({ isLoggedIn }) => {
           <div className="jumbotron jumbotron-fluid bg-transparent">
             <div className="container secondary-color">
               <h1 className="display-4">Todo</h1>
-              <p className="lead">Things to do</p>
+              <p className="lead">Things to do <span style={{color:"#FFE400"}}>{user.username} </span></p>
               <p
                 className={`btn ${!toAdd ? "btn-success" : "btn-danger"}`}
                 onClick={addTodo}

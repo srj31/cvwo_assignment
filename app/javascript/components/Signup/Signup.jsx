@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 
-function Signup(props) {
+function Signup({handleLogin}) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +11,7 @@ function Signup(props) {
   let history = useHistory();
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const user = {
       username: username,
       email: email,
@@ -38,7 +39,7 @@ function Signup(props) {
       .then((response) => {
         console.log(response);
         if (response.status == "created") {
-          props.handleLogin(response);
+          handleLogin(response);
           redirect();
         } else {
           setErrors(response.errors);
@@ -59,6 +60,7 @@ function Signup(props) {
           <input
             placeholder="Enter Username"
             className="form-control-plaintext mr-3 my-3 py-3"
+            autoComplete="username"
             type="text"
             name="username"
             value={username}
@@ -67,6 +69,7 @@ function Signup(props) {
           <input
             placeholder="Enter Email"
             className="form-control-plaintext mr-3 my-3 py-3"
+            autoComplete="email"
             type="text"
             name="email"
             value={email}
@@ -74,6 +77,7 @@ function Signup(props) {
           />
           <input
             placeholder="Password"
+            autoComplete="new-password"
             className="form-control-plaintext mr-3 my-3 py-3"
             type="password"
             name="password"
@@ -82,6 +86,7 @@ function Signup(props) {
           />
           <input
             placeholder="Password Confirmation"
+            autoComplete="new-password"
             className="form-control-plaintext mr-3 my-3 py-3"
             type="password"
             name="password_confirmation"
