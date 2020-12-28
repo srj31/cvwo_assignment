@@ -5,3 +5,11 @@
 .navbar-light .navbar-brand {
     color: #ffe400 !important;
 }
+
+.nav-link {
+    color: #747474 !important;
+}
+
+.active{
+    color: white !important;
+}

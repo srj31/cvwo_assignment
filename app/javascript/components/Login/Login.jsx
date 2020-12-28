@@ -62,6 +62,7 @@ function Login(props) {
           <input
             placeholder="Username"
             className="form-control-plaintext mr-3 my-3 py-3"
+            autoComplete="username"
             type="text"
             name="username"
             value={username}
@@ -70,6 +71,7 @@ function Login(props) {
           <input
             placeholder="Email"
             className="form-control-plaintext mr-3 my-3 py-3"
+            autoComplete="email"
             type="text"
             name="email"
             value={email}
@@ -78,6 +80,7 @@ function Login(props) {
           <input
             placeholder="Password"
             className="form-control-plaintext mr-3 my-3 py-3"
+            autoComplete="current-password"
             type="password"
             name="password"
             value={password}

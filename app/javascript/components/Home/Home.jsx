@@ -32,7 +32,7 @@ const Home = ({ isLoggedIn, user }) => {
   };
 
   return (
-    <div className="home">
+    <div className="home container">
       {isLoggedIn ? (
         <div className="vw-100 vh-100 primary-color d-flex justify-content-center">
           <div className="jumbotron jumbotron-fluid bg-transparent">

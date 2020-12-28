@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, withRouter, Link } from "react-router-dom";
+import { useHistory, withRouter, Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar({ handleLogout, isLoggedIn }) {
@@ -35,28 +35,28 @@ function Navbar({ handleLogout, isLoggedIn }) {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link to="/" className="nav-link">
+                <NavLink exact to="/" className="nav-link" activeClassName="active">
                   Home
-                </Link>
+                </NavLink>
               </li>
               {!isLoggedIn ? (
                 <span style={{display: "flex"}}>
                   <li className="nav-item">
-                    <Link to="/login" className="nav-link">
+                    <NavLink to="/login" className="nav-link" activeClassName="active">
                       Login
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link to="/signup" className="nav-link">
+                    <NavLink to="/signup" className="nav-link" activeClassName = "active">
                       Signup
-                    </Link>
+                    </NavLink>
                   </li>
                 </span>
               ) : (
                 <li className="nav-item">
-                  <Link to="/" className="nav-link" onClick={handleLogout}>
+                  <NavLink to="/" className="nav-link" onClick={handleLogout} activeClassName="active">
                     Logout
-                  </Link>
+                  </NavLink>
                 </li>
               )}
             </ul>

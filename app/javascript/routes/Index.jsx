@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 import Home from "../components/Home/Home";
 import Search from "../components/Search/Search";
 import Navbar from "../components/Navbar/Navbar";
@@ -15,7 +19,6 @@ function Index() {
   }, []);
 
   const handleLogin = (data) => {
-    // console.log(data)
     setIsLoggedIn(true);
     setUser(data.user);
   };
@@ -73,24 +76,35 @@ function Index() {
   return (
     <Router>
       <Navbar handleLogout={handleLogout} isLoggedIn={isLoggedIn} />
-      <Switch>
-        <Route
-          path="/"
-          exact
-          render={(props) => <Home {...props} isLoggedIn={isLoggedIn} user={user}/>}
-        />
-        <Route
-          exact
-          path="/login"
-          render={(props) => <Login {...props} handleLogin={handleLogin} />}
-        />
-        <Route
-          exact
-          path="/signup"
-          render={(props) => <Signup {...props} handleLogin={handleLogin} />}
-        />
-        <Route exact path="/api/v1/show/:name" component={Search} />
-      </Switch>
+      <Route render={({location}) => (
+        <TransitionGroup>
+          <CSSTransition
+            key={location.key}
+            timeout={300}
+            classNames="fade"
+          >
+            <Switch location={location}>
+              <Route
+                path="/"
+                exact
+                render={(props) => <Home {...props} isLoggedIn={isLoggedIn} user={user}/>}
+              />
+              <Route
+                exact
+                path="/login"
+                render={(props) => <Login {...props} handleLogin={handleLogin} />}
+              />
+              <Route
+                exact
+                path="/signup"
+                render={(props) => <Signup {...props} handleLogin={handleLogin} />}
+              />
+              <Route exact path="/api/v1/show/:name" component={Search} />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
+      )}/>
+      
     </Router>
   );
 }
