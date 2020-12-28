@@ -64,7 +64,7 @@ function Navbar({ handleLogout, isLoggedIn }) {
         </nav>
       </div>
 
-      <div className="navbar_Right">
+      {isLoggedIn && (<div className="navbar_Right">
         <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
           <input
             className="form-control mr-sm-2"
@@ -80,7 +80,7 @@ function Navbar({ handleLogout, isLoggedIn }) {
             Search by tag
           </button>
         </form>
-      </div>
+      </div>)}
     </div>
   );
 }
