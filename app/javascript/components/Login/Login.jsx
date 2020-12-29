@@ -55,8 +55,8 @@ function Login(props) {
 
   return (
     <div className="login container">
-      {errors && <ErrorComp errors={errors}/>}
       <h1 style={{ color: "#FFE400" }}>Log In</h1>
+      {errors && <ErrorComp errors={errors}/>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
