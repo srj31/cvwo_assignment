@@ -3,7 +3,6 @@ import "./Tag.css";
 
 function Tag({ editing, tag }) {
   const [newTag, setNewTag] = useState(tag);
-
   const handleChangeTag = (event) => {
     setNewTag({
       ...newTag,
@@ -11,7 +10,8 @@ function Tag({ editing, tag }) {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const url = `api/v1/tasks/${tag.task_id}/tags/${tag.id}`;
     const token = document.querySelector('meta[name="csrf-token"]').content;
     console.log(tag);
@@ -30,6 +30,7 @@ function Tag({ editing, tag }) {
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
+        setIsEditing(false)
         // console.log(response);
       })
       .catch(() => "Error occurred while editing the tag");
@@ -43,19 +44,20 @@ function Tag({ editing, tag }) {
 
   return (
     <div className="tag">
-      {/* {console.log(newTag)} */}
       {editing ? (
-        <input
-          type="text"
-          className="form-control-plaintext"
-          id="staticEmail2"
-          value={newTag.name}
-          onChange={handleChangeTag}
-          onKeyDown={handleKeyDown}
-          autoFocus
-        />
+        <form onSubmit={handleSubmit} style={{display:'flex'}}>
+          <input
+            type="text"
+            className="form-control-plaintext"
+            value={newTag.name}
+            onChange={handleChangeTag}
+            onKeyDown={handleKeyDown}
+            autoFocus
+          />
+          <button className="btn btn-info" style={{margin:10, fontSize:10}}>{" "}Update{" "}</button>
+        </form>
       ) : (
-        <div className="tag__body">{tag.name}</div>
+        <div className="tag__body">{newTag.name}</div>
       )}
     </div>
   );

@@ -127,7 +127,7 @@ function TaskItems({ task, status, handleSubmit }) {
             }}
           >
             {" "}
-            Update{" "}
+            Update Task{" "}
           </h6>
         </div>
       </div>

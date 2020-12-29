@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
+import ErrorComp from "../ErrorComp/ErrorComp";
 
 function Signup({handleLogin}) {
   const [username, setUsername] = useState("");
@@ -55,6 +56,7 @@ function Signup({handleLogin}) {
   return (
     <div className="signup container">
       <h1 style={{ color: "#FFE400" }}>Sign Up</h1>
+      {errors && <ErrorComp errors = {errors}/>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input

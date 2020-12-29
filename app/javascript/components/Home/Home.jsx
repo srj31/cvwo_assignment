@@ -4,6 +4,7 @@ import Tasks from "../Tasks/Tasks";
 import CreateTask from "../CreateTask/CreateTask";
 import "./Home.css";
 import IntroPage from "../IntroPage/IntroPage";
+import { CSSTransition } from "react-transition-group";
 
 const Home = ({ isLoggedIn, user }) => {
   const [todos, setTodos] = useState({});
@@ -38,14 +39,25 @@ const Home = ({ isLoggedIn, user }) => {
           <div className="jumbotron jumbotron-fluid bg-transparent">
             <div className="container secondary-color">
               <h1 className="display-4">Todo</h1>
-              <p className="lead">Things to do <span style={{color:"#FFE400"}}>{user.username} </span></p>
+              <p className="lead">
+                Things to do{" "}
+                <span style={{ color: "#FFE400" }}>{user.username} </span>
+              </p>
               <p
                 className={`btn ${!toAdd ? "btn-success" : "btn-danger"}`}
                 onClick={addTodo}
               >
                 {!toAdd ? <span>Add Task</span> : <span>Cancel</span>}
               </p>
-              {toAdd && <CreateTask />}
+              <CSSTransition
+                in={toAdd}
+                timeout={350}
+                classNames="home__createTask__transition"
+                unmountOnExit
+              >
+                <div><CreateTask /></div>
+              </CSSTransition>
+
               <hr className="my-4" />
               <div className="home__todo">
                 {loading ? (

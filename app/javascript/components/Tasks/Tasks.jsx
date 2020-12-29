@@ -30,14 +30,15 @@ function Tasks({ todos, status }) {
 
   return (
     <div className="task">
-      {todos.map((task, key) => {
+      {todos.map((task) => {
         return (
           <TaskItems
             task={task}
             status={status}
             handleSubmit={handleSubmit}
-            key={key}
+            key={task.id}
           />
+          
         );
       })}
     </div>

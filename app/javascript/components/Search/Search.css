@@ -1,4 +1,7 @@
 .search {
+    position: absolute !important;
+    left: 15px;
+    right: 15px;
     display:flex;
     flex-direction: column;
     justify-items: center;
