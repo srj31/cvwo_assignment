@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Tasks from "../Tasks/Tasks";
 import CreateTask from "../CreateTask/CreateTask";
 import "./Home.css";
-import IntroPage from "../IntroPage/IntroPage";
+import IntroPage from "../IntroPage/IntroPage.tsx";
 import { CSSTransition } from "react-transition-group";
 
 const Home = ({ isLoggedIn, user }) => {

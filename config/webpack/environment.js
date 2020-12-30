@@ -8,5 +8,9 @@ environment.plugins.append("Provide", new webpack.ProvidePlugin({
   Popper: ['popper.js', 'default']
 }))
 
+environment.loaders.append('typescript', {
+  test: /.(ts|tsx)$/,
+  loader: 'ts-loader'
+});
 
 module.exports = environment
