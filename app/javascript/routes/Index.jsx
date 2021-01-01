@@ -6,9 +6,9 @@ import {
 } from 'react-transition-group';
 import Home from "../components/Home/Home";
 import Search from "../components/Search/Search";
-import Navbar from "../components/Navbar/Navbar";
-import Login from "../components/Login/Login";
-import Signup from "../components/Signup/Signup";
+import Navbar from "../components/Navbar/Navbar.tsx";
+import Login from "../components/Login/Login.tsx";
+import Signup from "../components/Signup/Signup.tsx";
 
 function Index() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

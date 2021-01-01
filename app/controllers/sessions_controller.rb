@@ -3,16 +3,23 @@ class SessionsController < ApplicationController
     def create
         @user = User.find_by(username: session_params[:username])
 
-        if @user && @user.authenticate(session_params[:password])
-            login!
-            render json: {
-                logged_in: true,
-                user: @user
-            }
+        if @user 
+            if @user.authenticate(session_params[:password])
+                login!
+                render json: {
+                    logged_in: true,
+                    user: @user
+                }
+            else 
+                render json: {
+                    status: 401,
+                    errors: ['Seems you have entered a wrong password']
+                }
+            end
         else
             render json: {
                 status: 401,
-                errors: ['no such user, please try again']
+                errors: ['No such user']
             }
         end
     end

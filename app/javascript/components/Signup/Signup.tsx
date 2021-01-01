@@ -1,19 +1,24 @@
-import React, { useState } from "react";
-import { useHistory, withRouter } from "react-router-dom";
-import ErrorComp from "../ErrorComp/ErrorComp";
+import React, { useState, MetaHTMLAttributes } from "react";
+import { useHistory, withRouter, RouteComponentProps } from "react-router-dom";
+import ErrorComp from "../ErrorComp/ErrorComp.tsx";
+import { CreateUser, Error } from "../types";
 
-function Signup({handleLogin}) {
+interface SignupProps extends RouteComponentProps<any> {
+  handleLogin: Function;
+}
+
+const Signup: React.FC<SignupProps> = ({ handleLogin }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPassword_confirmation] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState<Array<Error> | null>(null);
 
   let history = useHistory();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const user = {
+    const user: CreateUser = {
       username: username,
       email: email,
       password: password,
@@ -21,7 +26,10 @@ function Signup({handleLogin}) {
     };
 
     const url = "/users";
-    const token = document.querySelector('meta[name="csrf-token"]').content;
+    const metaElement = document.querySelector(
+      'meta[name="csrf-token"]'
+    ) as HTMLMetaElement;
+    const token = metaElement.content;
 
     fetch(url, {
       method: "POST",
@@ -56,7 +64,7 @@ function Signup({handleLogin}) {
   return (
     <div className="signup container">
       <h1 style={{ color: "#FFE400" }}>Sign Up</h1>
-      {errors && <ErrorComp errors = {errors}/>}
+      {errors && <ErrorComp errors={errors} />}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
@@ -111,6 +119,6 @@ function Signup({handleLogin}) {
       </form>
     </div>
   );
-}
+};
 
 export default withRouter(Signup);

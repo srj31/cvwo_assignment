@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ErrorComp from "../ErrorComp/ErrorComp";
+import { Task, Tag, Error } from "../types";
 
-const CreateTask = () => {
+interface CreateTaskProps {}
+
+const CreateTask: React.FC<CreateTaskProps> = () => {
   const [todo, setTodo] = useState({});
   const [tag, setTag] = useState({});
-  const [user, setUser] = useState({ id: "-1" });
-  const [hasError, setHasError] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [user, setUser] = useState({ id: -1 });
+  const [errors, setErrors] = useState<Array<Error> | null>(null);
 
   useEffect(() => {
     const url = "/logged_in";
@@ -31,40 +33,45 @@ const CreateTask = () => {
       });
   }, []);
 
-  const handleChangeName = (event) => {
+  const handleChangeName = (event: React.FormEvent<HTMLInputElement>) => {
     setTodo({
       ...todo,
-      name: event.target.value,
+      name: event.currentTarget.value,
     });
   };
 
-  const handleChangeDescription = (event) => {
+  const handleChangeDescription = (
+    event: React.FormEvent<HTMLInputElement>
+  ) => {
     setTodo({
       ...todo,
-      description: event.target.value,
+      description: event.currentTarget.value,
     });
   };
 
-  const handleChangeTag = (event) => {
+  const handleChangeTag = (event: React.FormEvent<HTMLInputElement>) => {
     setTag({
       ...tag,
-      name: event.target.value,
+      name: event.currentTarget.value,
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (todo == "") return;
+    if (todo == null) return;
 
     const todoBody = {
       ...todo,
       completed: false,
-      user_id: user.id
+      user_id: user.id,
     };
 
     const url1 = "/api/v1/tasks";
-    const token = document.querySelector('meta[name="csrf-token"]').content;
+    const metaElement = document.querySelector(
+      'meta[name="csrf-token"]'
+    ) as HTMLMetaElement;
+    const token = metaElement.content;
 
     fetch(url1, {
       method: "POST",
@@ -79,9 +86,14 @@ const CreateTask = () => {
         if (response.ok) {
           return response.json();
         }
-        throw response.json();
+        throw new Error("Network Response was not ok");
       })
       .then((task) => {
+        if (task.status== 500) {
+          setErrors(task.errors);
+          throw new Error("Invalid Inputs");
+        }
+        
         const url2 = `/api/v1/tasks/${task.id}/tags`;
         fetch(url2, {
           method: "POST",
@@ -105,16 +117,13 @@ const CreateTask = () => {
         window.location.reload(false);
       })
       .catch((error) => {
-        error.then((err) => {
-          setErrors(JSON.parse(JSON.stringify(err.errors)));
-          setHasError(true);
-        });
+        console.log("Error while creating task: ",error)
       });
   };
 
   return (
     <div className="createTask">
-      {hasError && <ErrorComp errors = {errors}/>}
+      {errors && <ErrorComp errors={errors} />}
       Create a new Task
       <form className="createTask__body" onSubmit={handleSubmit}>
         <input

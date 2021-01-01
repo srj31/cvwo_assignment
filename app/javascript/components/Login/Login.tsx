@@ -1,27 +1,40 @@
 import React, { useState } from "react";
-import { Link, useHistory, withRouter } from "react-router-dom";
+import {
+  Link,
+  useHistory,
+  withRouter,
+  RouteComponentProps,
+} from "react-router-dom";
 import "./Login.css";
-import ErrorComp from "../ErrorComp/ErrorComp";
+import ErrorComp from "../ErrorComp/ErrorComp.tsx";
+import { Error, User } from "../types";
 
-function Login(props) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
+interface LoginProps extends RouteComponentProps<any> {
+  handleLogin: Function;
+}
+
+const Login: React.FC<LoginProps> = ({ handleLogin }) => {
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errors, setErrors] = useState<Array<Error> | null>(null);
   let history = useHistory();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const user = {
+  const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    const user: User = {
       username: username,
       email: email,
       password: password,
     };
 
     const url = "/login";
-    const token = document.querySelector('meta[name="csrf-token"]').content;
+    const metaElement = document.querySelector(
+      'meta[name="csrf-token"]'
+    ) as HTMLMetaElement;
+    const token = metaElement.content;
 
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "X-CSRF-Token": token,
@@ -40,9 +53,8 @@ function Login(props) {
         console.log(response);
         if (response.logged_in) {
           redirect();
-          props.handleLogin(response);
+          handleLogin(response);
         } else {
-          console.log(response.errors);
           setErrors(response.errors);
         }
       })
@@ -56,7 +68,7 @@ function Login(props) {
   return (
     <div className="login container">
       <h1 style={{ color: "#FFE400" }}>Log In</h1>
-      {errors && <ErrorComp errors={errors}/>}
+      {errors && <ErrorComp errors={errors} />}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
@@ -88,17 +100,25 @@ function Login(props) {
           />
         </div>
         <div className="login__buttons">
-          <button className="btn btn-success" type="submit" style={{marginBottom:20}}>
+          <button
+            className="btn btn-success"
+            type="submit"
+            style={{ marginBottom: 20 }}
+          >
             Log In
           </button>
-          <span style={{ color: "#ffffff", textAlign:"center"}}>OR</span>
-          <Link to="/signup" className="btn btn-danger" style={{marginTop:20}}>
+          <span style={{ color: "#ffffff", textAlign: "center" }}>OR</span>
+          <Link
+            to="/signup"
+            className="btn btn-danger"
+            style={{ marginTop: 20 }}
+          >
             Sign up
           </Link>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default withRouter(Login);

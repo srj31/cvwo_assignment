@@ -1,16 +1,23 @@
-import React, { useState } from "react";
-import { useHistory, withRouter, Link, NavLink } from "react-router-dom";
+import React, { useState, MouseEventHandler } from "react";
+import { useHistory, withRouter, Link, NavLink, RouteComponentProps } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar({ handleLogout, isLoggedIn }) {
+
+
+interface NavbarProps extends RouteComponentProps<any> {
+  handleLogout: MouseEventHandler;
+  isLoggedIn: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ handleLogout, isLoggedIn }) => {
   const [tagSearch, setTagSearch] = useState("");
   let history = useHistory();
 
-  const handleChange = (event) => {
-    setTagSearch(event.target.value);
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setTagSearch(event.currentTarget.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     history.push(`/api/v1/show/${tagSearch}`);
   };
@@ -41,7 +48,7 @@ function Navbar({ handleLogout, isLoggedIn }) {
                 </NavLink>
               </li>
               {!isLoggedIn ? (
-                <span style={{display: "flex"}}>
+                <React.Fragment>
                   <li className="nav-item">
                     <NavLink to="/login" className="nav-link" activeClassName="active">
                       Login
@@ -52,7 +59,7 @@ function Navbar({ handleLogout, isLoggedIn }) {
                       Signup
                     </NavLink>
                   </li>
-                </span>
+                </React.Fragment>
               ) : (
                 <li className="nav-item">
                   <NavLink to="/" className="nav-link" onClick={handleLogout} activeClassName="active">

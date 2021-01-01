@@ -13,4 +13,4 @@ environment.loaders.append('typescript', {
   loader: 'ts-loader'
 });
 
-module.exports = environment
+module.exports = environment;

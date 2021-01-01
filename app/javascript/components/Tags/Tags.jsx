@@ -1,5 +1,5 @@
 import React from "react";
-import Tag from "../Tag/Tag";
+import Tag from "../Tag/Tag.tsx";
 
 function Tags({ editing, tags }) {
   return (
