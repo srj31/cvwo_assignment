@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ErrorComp from "../ErrorComp/ErrorComp";
+import ErrorComp from "../ErrorComp/ErrorComp.tsx";
 import { Task, Tag, Error } from "../types";
 
 interface CreateTaskProps {}
