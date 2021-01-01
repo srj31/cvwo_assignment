@@ -2,6 +2,7 @@
   "name": "cvwo_assignment",
   "private": true,
   "dependencies": {
+    "@angular/core": "^11.0.5",
     "@babel/preset-react": "^7.12.7",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
