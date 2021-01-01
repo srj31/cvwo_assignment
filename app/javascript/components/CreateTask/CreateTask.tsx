@@ -83,12 +83,13 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
     })
       .then((response) => {
         console.log(response);
-        if (response.ok) {
+        if (response.ok || response.status==500) {
           return response.json();
         }
         throw new Error("Network Response was not ok");
       })
       .then((task) => {
+        console.log(task);
         if (task.status== 500) {
           setErrors(task.errors);
           throw new Error("Invalid Inputs");
@@ -114,7 +115,7 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
           });
       })
       .then((response) => {
-        window.location.reload(false);
+        // window.location.reload(false);
       })
       .catch((error) => {
         console.log("Error while creating task: ",error)

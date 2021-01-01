@@ -22,7 +22,7 @@ class Api::V1::TasksController < ApplicationController
     if new_todo.save
       render json: { id: new_todo.id}
     else
-      render json: { errors: new_todo.errors.full_messages}, status: 500
+      render json: { errors: new_todo.errors.full_messages , status: 500}
     end
   end
 
