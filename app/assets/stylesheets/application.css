@@ -93,6 +93,11 @@ input[type=password]:focus {
   flex: 0.6;
 }
 
+.taskItems__body__deadline {
+  color: #747474;
+  font-size: 12px;
+}
+
 .taskItems__links {
   padding-left: 20px;
   flex: 0.2;

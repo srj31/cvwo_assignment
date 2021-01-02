@@ -17,5 +17,5 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 import "bootstrap"
-import "react-big-calendar/lib/css/react-big-calendar.css"
+import "react-big-calendar"
 // import 'stylesheets/application'
