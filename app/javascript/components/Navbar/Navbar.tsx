@@ -61,11 +61,19 @@ const Navbar: React.FC<NavbarProps> = ({ handleLogout, isLoggedIn }) => {
                   </li>
                 </React.Fragment>
               ) : (
+                <>
+                <li className="nav-item">
+                  <NavLink to="/calendar" className="nav-link" activeClassName="active">
+                    Calendar
+                  </NavLink>
+                </li>
                 <li className="nav-item">
                   <NavLink to="/" className="nav-link" onClick={handleLogout} activeClassName="active">
                     Logout
                   </NavLink>
                 </li>
+
+                </>
               )}
             </ul>
           </div>

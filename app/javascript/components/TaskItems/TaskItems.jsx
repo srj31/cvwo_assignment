@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./TaskItems.css";
 import Tags from "../Tags/Tags";
+import moment from "moment";
 
 function TaskItems({ task, status, handleSubmit }) {
   const [editing, setEditing] = useState(false);
@@ -51,6 +52,12 @@ function TaskItems({ task, status, handleSubmit }) {
     });
   };
 
+  const handleChangeDeadline = (event) => {
+    setNewTask({
+      ...newTask,
+      deadline: event.currentTarget.value,
+    });
+  };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setEditing(false);
@@ -116,6 +123,19 @@ function TaskItems({ task, status, handleSubmit }) {
             onKeyDown={handleKeyDown}
             autoFocus
           />
+          <input
+            type="datetime-local"
+            className="form-control-datetime-local"
+            placeholder="Todo Deadline(Optional)"
+            value={newTask.deadline}
+            onChange={handleChangeDeadline}
+            style={{
+              backgroundColor: "#272727",
+              color: "#747474",
+              width: "100%",
+              border: "none",
+            }}
+          />
           <Tags editing={editing} tags={tags} />
         </div>
         <div className="taskItems__links">
@@ -158,6 +178,9 @@ function TaskItems({ task, status, handleSubmit }) {
           <div className="taskItems__header">{newTask.name}</div>
           <div className="taskItems__body">
             {newTask.description}
+            <div className="taskItems__body__deadline">
+              {newTask.deadline && (<>Deadline: {moment(newTask.deadline).format("llll")}</>)}
+            </div>
             <Tags editing={editing} tags={tags} />
           </div>
           <div className="taskItems__links">

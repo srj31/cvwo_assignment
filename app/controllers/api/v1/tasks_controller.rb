@@ -3,8 +3,8 @@ class Api::V1::TasksController < ApplicationController
   before_action :correct_user, only: [:update,:destroy]
 
   def index
-    completed = current_user.tasks.where(completed: true)
-    uncompleted = current_user.tasks.where(completed: false).order(:id)
+    completed = current_user.tasks.where(completed: true).order(:deadline)
+    uncompleted = current_user.tasks.where(completed: false).order(:deadline)
     render json: { completed: completed, uncompleted: uncompleted }
   end
 
@@ -42,7 +42,7 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def todo_params
-    params.require(:task).permit(:id, :name, :description, :completed, :user_id)
+    params.require(:task).permit(:id, :name, :description, :completed, :user_id, :deadline)
   end
 
   def todo

@@ -9,6 +9,7 @@ import Search from "../components/Search/Search";
 import Navbar from "../components/Navbar/Navbar.tsx";
 import Login from "../components/Login/Login.tsx";
 import Signup from "../components/Signup/Signup.tsx";
+import CalendarComp from "../components/CalendarComp/CalendarComp";
 
 function Index() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -100,6 +101,11 @@ function Index() {
                 render={(props) => <Signup {...props} handleLogin={handleLogin} />}
               />
               <Route exact path="/api/v1/show/:name" component={Search} />
+              <Route
+                path="/calendar"
+                exact
+                render={(props) => <CalendarComp {...props} isLoggedIn={isLoggedIn} user={user}/>}
+              />
             </Switch>
           </CSSTransition>
         </TransitionGroup>

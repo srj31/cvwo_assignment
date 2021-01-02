@@ -8,6 +8,7 @@ export type Task = {
   id: number;
   name: string;
   description: string;
+  deadline: Date;
   completed: boolean;
   tag: Tag;
 };

@@ -1,0 +1,16 @@
+.rbc-off-range-bg {
+    background: #747474;
+}
+
+.rbc-off-range {
+    color: white;
+}
+
+.rbc-date-cell.rbc-now {
+    font-weight: bold;
+    color: #ffe400;
+}
+
+.rbc-today {
+    background-color: transparent;
+}

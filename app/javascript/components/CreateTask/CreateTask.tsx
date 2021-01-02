@@ -6,7 +6,7 @@ interface CreateTaskProps {}
 
 const CreateTask: React.FC<CreateTaskProps> = () => {
   const [todo, setTodo] = useState({});
-  const [tag, setTag] = useState({});
+  const [tag, setTag] = useState({name: ""});
   const [user, setUser] = useState({ id: -1 });
   const [errors, setErrors] = useState<Array<Error> | null>(null);
 
@@ -56,6 +56,13 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
     });
   };
 
+  const handleChangeDeadline = (event: React.FormEvent<HTMLInputElement>) => {
+    setTodo({
+      ...todo,
+      deadline: event.currentTarget.value,
+    })
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -83,18 +90,20 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
     })
       .then((response) => {
         console.log(response);
-        if (response.ok || response.status==500) {
+        if (response.ok || response.status == 500) {
           return response.json();
         }
         throw new Error("Network Response was not ok");
       })
       .then((task) => {
         console.log(task);
-        if (task.status== 500) {
+        if (task.status == 500) {
           setErrors(task.errors);
           throw new Error("Invalid Inputs");
         }
-        
+
+        if(tag == null) return;
+
         const url2 = `/api/v1/tasks/${task.id}/tags`;
         fetch(url2, {
           method: "POST",
@@ -115,10 +124,10 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
           });
       })
       .then((response) => {
-        // window.location.reload(false);
+        window.location.reload(false);
       })
       .catch((error) => {
-        console.log("Error while creating task: ",error)
+        console.log("Error while creating task: ", error);
       });
   };
 
@@ -145,6 +154,13 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
           className="form-control-plaintext mr-3 my-3 py-3"
           placeholder="Todo Tag"
           onChange={handleChangeTag}
+        />
+        <input
+          type="datetime-local"
+          className="form-control-datetime-local mr-3 my-3 py-3"
+          placeholder="Todo Deadline(Optional)"
+          onChange={handleChangeDeadline}
+          style={{backgroundColor:"#272727",color:"#747474",width:"100%",border:"none"}}
         />
         <input
           type="hidden"
