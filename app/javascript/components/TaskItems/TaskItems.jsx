@@ -20,6 +20,7 @@ function TaskItems({ task, status, handleSubmit }) {
         throw new Error("Network response was not ok");
       })
       .then((response) => {
+        // console.log(response);
         setTags(response);
       })
       .catch(() => console.log("An error occurred while fetching the tags"));
