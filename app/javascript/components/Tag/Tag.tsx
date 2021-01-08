@@ -68,7 +68,9 @@ const Tag: React.FC<TagProps> = ({ editing, tag }) => {
           </button>
         </form>
       ) : (
-        <div className="tag__body">{newTag.name}</div>
+        <>
+          <div className="tag__body">{newTag.name}</div>
+        </>
       )}
     </div>
   );

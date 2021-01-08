@@ -31,6 +31,7 @@ function Tasks({ todos, status }) {
   return (
     <div className="task">
       {todos.map((task) => {
+        // console.log(task)
         return (
           <TaskItems
             task={task}
