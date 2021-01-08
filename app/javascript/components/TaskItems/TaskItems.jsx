@@ -182,7 +182,7 @@ function TaskItems({ task, status, handleSubmit }) {
             <div className="taskItems__body__deadline">
               {newTask.deadline && (<>Deadline: {moment(newTask.deadline).format("llll")}</>)}
             </div>
-            <Tags editing={editing} tags={tags} />
+            <Tags editing={editing} tags={tags} task_id={task.id} />
           </div>
           <div className="taskItems__links">
             <h6 className="btn btn-primary" onClick={handleEdit}>
