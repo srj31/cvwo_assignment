@@ -9,11 +9,40 @@ interface TagProps {
 
 const Tag: React.FC<TagProps> = ({ editing, tag }) => {
   const [newTag, setNewTag] = useState<Tag>(tag);
+  const [toDelete, setToDelete] = useState(false);
+
   const handleChangeTag = (event: React.FormEvent<HTMLInputElement>) => {
     setNewTag({
       ...newTag,
       name: event.currentTarget.value,
     });
+  };
+
+  const deleteTag = (e?: React.MouseEvent<HTMLDivElement>) => {
+    const url = `api/v1/tasks/${tag.task_id}/tags/${tag.id}`;
+    const metaElement = document.querySelector(
+      'meta[name="csrf-token"]'
+    ) as HTMLMetaElement;
+    const token = metaElement.content;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((response) => {
+        console.log(response);
+        setToDelete(true);
+        // window.location.reload(false);
+      })
+      .catch(() => "Error occurred while deleting the task");
   };
 
   const handleSubmit = async (
@@ -69,7 +98,14 @@ const Tag: React.FC<TagProps> = ({ editing, tag }) => {
         </form>
       ) : (
         <>
-          <div className="tag__body">{newTag.name}</div>
+          {!toDelete && (
+            <div className="tag__body">
+              {newTag.name}
+              <div className="tag__delete" onClick={deleteTag}>
+                x
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

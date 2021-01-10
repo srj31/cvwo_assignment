@@ -24,7 +24,7 @@ function TaskItems({ task, status, handleSubmit }) {
         setTags(response);
       })
       .catch(() => console.log("An error occurred while fetching the tags"));
-  }, []);
+  }, [task]);
 
   const handleChangeCompleted = (event) => {
     setNewTask({

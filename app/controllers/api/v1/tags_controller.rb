@@ -37,9 +37,17 @@ class Api::V1::TagsController < ApplicationController
         end
     end
 
+    def destroy
+        tag&.destroy
+        render json: { messgae: "Tag Deleted"}
+      end
+
     private
         def tag_params
             params.require(:tag).permit(:name, :task_id)
         end
 
+        def tag
+            @tag ||= Tag.find(params[:id])
+        end
 end

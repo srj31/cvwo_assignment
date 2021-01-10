@@ -4,11 +4,11 @@ import './Tags.css'
 function Tags({ editing, tags, task_id }) {
   const [addTag, setAddTag] = useState({name: ""});
   const [toAdd, setToAdd] = useState(false);
-  const handleKeyDownAdd = (event) => {
-    if (event.key === "Enter") {
-      handleAdd();
-    }
-  };
+  // const handleKeyDownAdd = (event) => {
+  //   if (event.key === "Enter") {
+  //     handleAdd();
+  //   }
+  // };
 
   const handleChangeAddTag = (event) => {
     setAddTag({
@@ -62,7 +62,7 @@ function Tags({ editing, tags, task_id }) {
             className="form-control-plaintext"
             value={addTag.name}
             onChange={handleChangeAddTag}
-            onKeyDown={handleKeyDownAdd}
+            // onKeyDown={handleKeyDownAdd}
             autoFocus
           />
           <button
