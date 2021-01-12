@@ -5,27 +5,32 @@ import CreateTask from "../CreateTask/CreateTask.tsx";
 import "./Home.css";
 import IntroPage from "../IntroPage/IntroPage.tsx";
 import { CSSTransition } from "react-transition-group";
+import { connect } from "react-redux";
+import { fetchTasks } from "../../actions/taskActions";
 
 const Home = ({ isLoggedIn, user }) => {
-  const [todos, setTodos] = useState({});
+  const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
 
   useEffect(() => {
-    const url = "/api/v1/tasks";
-    fetch(url)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then((response) => {
-        console.log(response);
-        setTodos(response);
-        setLoading(false);
-      })
-      .catch(() => console.log("An error occurred while fetching the todos"));
+    fetchTasks()
+      .then(() => setLoading(false))
+      .catch((err) => dialog.alert("Error, unable to fetch tasks. " + err));
+    // const url = "/api/v1/tasks";
+    // fetch(url)
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       return response.json();
+    //     }
+    //     throw new Error("Network response was not ok.");
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     settasks(response);
+    //     setLoading(false);
+    //   })
+    //   .catch(() => console.log("An error occurred while fetching the tasks"));
   }, []);
 
   const addTodo = () => {
@@ -55,7 +60,9 @@ const Home = ({ isLoggedIn, user }) => {
                 classNames="home__createTask__transition"
                 unmountOnExit
               >
-                <div><CreateTask /></div>
+                <div>
+                  <CreateTask />
+                </div>
               </CSSTransition>
 
               <hr className="my-4" />
@@ -68,8 +75,8 @@ const Home = ({ isLoggedIn, user }) => {
                   </div>
                 ) : (
                   <div>
-                    <Tasks todos={todos.uncompleted} status={false} />
-                    <Tasks todos={todos.completed} status={true} />
+                    <Tasks tasks={tasks.uncompleted} status={false} />
+                    <Tasks tasks={tasks.completed} status={true} />
                   </div>
                 )}
               </div>
@@ -83,4 +90,6 @@ const Home = ({ isLoggedIn, user }) => {
   );
 };
 
-export default Home;
+export default connect((state) => ({ tasks: state.tasks.items }), {
+  fetchTasks,
+})(Home);
