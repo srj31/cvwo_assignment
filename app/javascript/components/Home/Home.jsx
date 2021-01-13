@@ -12,6 +12,7 @@ const Home = ({ isLoggedIn, user }) => {
   const [toAdd, setToAdd] = useState(false);
 
   useEffect(() => {
+    if(isLoggedIn) {
     const url = "/api/v1/tasks";
     fetch(url)
       .then((response) => {
@@ -26,7 +27,8 @@ const Home = ({ isLoggedIn, user }) => {
         setLoading(false);
       })
       .catch(() => console.log("An error occurred while fetching the todos"));
-  }, []);
+    }
+  }, [isLoggedIn]);
 
   const addTodo = () => {
     setToAdd(!toAdd);
