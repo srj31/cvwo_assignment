@@ -19,7 +19,7 @@ const Tag: React.FC<TagProps> = ({ editing, tag }) => {
   };
 
   const deleteTag = (e?: React.MouseEvent<HTMLDivElement>) => {
-    const url = `api/v1/tasks/${tag.task_id}/tags/${tag.id}`;
+    const url = `/api/v1/tasks/${tag.task_id}/tags/${tag.id}`;
     const metaElement = document.querySelector(
       'meta[name="csrf-token"]'
     ) as HTMLMetaElement;

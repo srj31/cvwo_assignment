@@ -44,7 +44,7 @@ const CalendarComp = ({}) => {
         events={cal_events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500, color: "#747474", width: "80%", position:"absolute",left:"10%" }}
+        style={{ height: 700, color: "#747474", width: "80%", position:"absolute",left:"10%" }}
       />
       {console.log(cal_events)}
     </>
