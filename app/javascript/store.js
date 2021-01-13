@@ -7,7 +7,7 @@ const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   combineReducers({
-    products: tasksReducer,
+    tasks: tasksReducer,
   }),
   initialState,
   composeEnhancer(applyMiddleware(thunk))

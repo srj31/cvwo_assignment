@@ -1,7 +1,7 @@
 import React from "react";
 import TaskItems from "../TaskItems/TaskItems";
 
-function Tasks({ todos, status }) {
+function Tasks({ tasks, status }) {
 
   const handleSubmit = (body) => {
     const url = `/api/v1/tasks/${body.id}`;
@@ -30,7 +30,7 @@ function Tasks({ todos, status }) {
 
   return (
     <div className="task">
-      {todos.map((task) => {
+      {tasks.map((task) => {
         return (
           <TaskItems
             task={task}

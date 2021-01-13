@@ -5,18 +5,23 @@ import CreateTask from "../CreateTask/CreateTask.tsx";
 import "./Home.css";
 import IntroPage from "../IntroPage/IntroPage.tsx";
 import { CSSTransition } from "react-transition-group";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "../../actions/taskActions";
+import store from "../../store";
 
-const Home = ({ isLoggedIn, user }) => {
+const Home = ({ isLoggedIn, user, ...props }) => {
   const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
+  const res = useSelector(state => state.tasks)
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchTasks()
-      .then(() => setLoading(false))
-      .catch((err) => dialog.alert("Error, unable to fetch tasks. " + err));
+    dispatch(fetchTasks());
+    // setTasks(tasks);
+    setTasks(res)
+    // .catch((err) => dialog.alert("Error, unable to fetch tasks. " + err));
     // const url = "/api/v1/tasks";
     // fetch(url)
     //   .then((response) => {
@@ -31,7 +36,7 @@ const Home = ({ isLoggedIn, user }) => {
     //     setLoading(false);
     //   })
     //   .catch(() => console.log("An error occurred while fetching the tasks"));
-  }, []);
+  }, [res]);
 
   const addTodo = () => {
     setToAdd(!toAdd);
@@ -90,6 +95,11 @@ const Home = ({ isLoggedIn, user }) => {
   );
 };
 
-export default connect((state) => ({ tasks: state.tasks.items }), {
-  fetchTasks,
-})(Home);
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    tasks: state.tasks.items,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
