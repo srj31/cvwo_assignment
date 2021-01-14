@@ -6,9 +6,9 @@
   flex-wrap: wrap;
 }
 
-.introPage__body > p {
-    flex: 0.6;
-  }
+.introPage__body__left {
+  flex: 0.6;
+}
 
 .introPage__body > img {
   object-fit: contain;
