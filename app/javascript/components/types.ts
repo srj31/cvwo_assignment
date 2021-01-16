@@ -17,19 +17,19 @@ export type Error = {
   id: number;
   status: number;
   message: string;
-}
+};
 
 export type User = {
   id?: number;
   username: string;
   email: string;
   password: string;
-}
-
+  coins: number;
+};
 
 export type CreateUser = {
   username: string;
   email: string;
   password: string;
   password_confirmation: string;
-}
+};

@@ -1,18 +1,12 @@
 .navbar {
     background-color: #272727;
-    margin-bottom: 20px;
-
 }
 
 .navbar-light .navbar-brand {
     color: #ffe400 !important;
 }
 
-/* 
-.nav-link {
-    color: #747474 !important;
+.navbar__Right {
+    display: flex;
+    align-items: center;
 }
-
-.active{
-    color: white !important;
-} */

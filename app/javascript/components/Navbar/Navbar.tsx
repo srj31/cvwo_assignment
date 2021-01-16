@@ -1,15 +1,21 @@
 import React, { useState, MouseEventHandler } from "react";
-import { useHistory, withRouter, Link, NavLink, RouteComponentProps } from "react-router-dom";
+import {
+  useHistory,
+  withRouter,
+  Link,
+  NavLink,
+  RouteComponentProps,
+} from "react-router-dom";
 import "./Navbar.css";
-
-
+import { User } from "../types";
 
 interface NavbarProps extends RouteComponentProps<any> {
   handleLogout: MouseEventHandler;
   isLoggedIn: boolean;
+  user: User;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ handleLogout, isLoggedIn }) => {
+const Navbar: React.FC<NavbarProps> = ({ handleLogout, isLoggedIn, user }) => {
   const [tagSearch, setTagSearch] = useState("");
   let history = useHistory();
 
@@ -43,36 +49,57 @@ const Navbar: React.FC<NavbarProps> = ({ handleLogout, isLoggedIn }) => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink exact to="/" className="nav-link" activeClassName="active">
+                <NavLink
+                  exact
+                  to="/"
+                  className="nav-link"
+                  activeClassName="active"
+                >
                   Home
                 </NavLink>
               </li>
               {!isLoggedIn ? (
                 <React.Fragment>
                   <li className="nav-item">
-                    <NavLink to="/login" className="nav-link" activeClassName="active">
+                    <NavLink
+                      to="/login"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
                       Login
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/signup" className="nav-link" activeClassName = "active">
+                    <NavLink
+                      to="/signup"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
                       Signup
                     </NavLink>
                   </li>
                 </React.Fragment>
               ) : (
                 <>
-                <li className="nav-item">
-                  <NavLink to="/calendar" className="nav-link" activeClassName="active">
-                    Calendar
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/" className="nav-link" onClick={handleLogout} activeClassName="active">
-                    Logout
-                  </NavLink>
-                </li>
-
+                  <li className="nav-item">
+                    <NavLink
+                      to="/calendar"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      Calendar
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink
+                      to="/"
+                      className="nav-link"
+                      onClick={handleLogout}
+                      activeClassName="active"
+                    >
+                      Logout
+                    </NavLink>
+                  </li>
                 </>
               )}
             </ul>
@@ -80,25 +107,28 @@ const Navbar: React.FC<NavbarProps> = ({ handleLogout, isLoggedIn }) => {
         </nav>
       </div>
 
-      {isLoggedIn && (<div className="navbar_Right">
-        <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
-          <input
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            onChange={handleChange}
-          />
-          <button
-            className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Search by tag
-          </button>
-        </form>
-      </div>)}
+      {isLoggedIn && (
+        <div className="navbar__Right">
+          {user && <div style={{ color: "#ffe400" }}>COINS: {user.coins}</div>}
+          <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              onChange={handleChange}
+            />
+            <button
+              className="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
+              Search by tag
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default withRouter(Navbar);

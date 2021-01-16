@@ -13,3 +13,8 @@
 .active{
     color: white !important;
 }
+
+.navbar__Right {
+    display: flex;
+    align-items: center;
+}

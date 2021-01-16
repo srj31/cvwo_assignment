@@ -75,7 +75,7 @@ function Index() {
 
   return (
     <Router>
-      <Navbar handleLogout={handleLogout} isLoggedIn={isLoggedIn} />
+      <Navbar handleLogout={handleLogout} isLoggedIn={isLoggedIn} user={user}/>
       <Route render={({location}) => (
         <TransitionGroup>
           <CSSTransition
