@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./TaskItems.css";
 import Tags from "../Tags/Tags";
 import moment from "moment";
-import Image from '../../../assets/images/IntroPic.svg'
 
 function TaskItems({ task, status, handleSubmit }) {
   const [editing, setEditing] = useState(false);
