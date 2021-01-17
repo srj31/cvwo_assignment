@@ -13,30 +13,14 @@ const Home = ({ isLoggedIn, user, ...props }) => {
   const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
-  const res = useSelector(state => state.tasks)
+  const res = useSelector((state) => state.tasks);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTasks());
-    // setTasks(tasks);
-    setTasks(res)
-    // .catch((err) => dialog.alert("Error, unable to fetch tasks. " + err));
-    // const url = "/api/v1/tasks";
-    // fetch(url)
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       return response.json();
-    //     }
-    //     throw new Error("Network response was not ok.");
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     settasks(response);
-    //     setLoading(false);
-    //   })
-    //   .catch(() => console.log("An error occurred while fetching the tasks"));
-  }, [res]);
+    setLoading(false);
+  }, []);
 
   const addTodo = () => {
     setToAdd(!toAdd);
@@ -80,8 +64,12 @@ const Home = ({ isLoggedIn, user, ...props }) => {
                   </div>
                 ) : (
                   <div>
-                    <Tasks tasks={tasks.uncompleted} status={false} />
-                    <Tasks tasks={tasks.completed} status={true} />
+                    {props.tasks && (
+                      <>
+                        <Tasks tasks={props.tasks.uncompleted} status={false} />
+                        <Tasks tasks={props.tasks.completed} status={true} />
+                      </>
+                    )}
                   </div>
                 )}
               </div>

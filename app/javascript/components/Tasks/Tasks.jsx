@@ -30,7 +30,7 @@ function Tasks({ tasks, status }) {
 
   return (
     <div className="task">
-      {tasks.map((task) => {
+      {tasks && tasks.map((task) => {
         return (
           <TaskItems
             task={task}

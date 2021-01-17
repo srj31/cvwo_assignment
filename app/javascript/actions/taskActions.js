@@ -5,11 +5,21 @@ export const fetchTasks = () => async (dispatch) => {
   return await fetch(url)
   .then(response => {
     if(response.ok) {
-      dispatch({
-        type: FETCH_TASKS,
-        payload: response.json(),
-      })
+      // dispatch({
+      //   type: FETCH_TASKS,
+      //   payload: response.json(),
+      // })
+      return response.json()
     }
+    
+    throw Error("Something wrong in actions")
+  })
+  .then(response => {
+    dispatch({
+      type: FETCH_TASKS,
+      payload: response
+    })
+    return response
   })
   .catch(err => {
     console.error(err);
