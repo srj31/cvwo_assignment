@@ -6,7 +6,7 @@ class Api::V1::TagsController < ApplicationController
     end
 
     def show
-        tags = Tag.where(name: params[:name])
+        tags = Tag.where("LOWER(name) = ?", params[:name].downcase)
         tagged_tasks_completed = []
         tagged_tasks_uncompleted =[]
         tags.each do |tag|
