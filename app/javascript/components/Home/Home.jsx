@@ -5,30 +5,23 @@ import CreateTask from "../CreateTask/CreateTask.tsx";
 import "./Home.css";
 import IntroPage from "../IntroPage/IntroPage.jsx";
 import { CSSTransition } from "react-transition-group";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { fetchTasks } from "../../actions/taskActions";
+import store from "../../store";
 
-const Home = ({ isLoggedIn, user }) => {
-  const [todos, setTodos] = useState({});
+const Home = ({ isLoggedIn, user, ...props }) => {
+  const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
+  const res = useSelector((state) => state.tasks);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if(isLoggedIn) {
-    const url = "/api/v1/tasks";
-    fetch(url)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then((response) => {
-        console.log(response);
-        setTodos(response);
-        setLoading(false);
-      })
-      .catch(() => console.log("An error occurred while fetching the todos"));
-    }
-  }, [isLoggedIn]);
+    dispatch(fetchTasks());
+    setLoading(false);
+  }, []);
+
 
   const addTodo = () => {
     setToAdd(!toAdd);
@@ -57,7 +50,9 @@ const Home = ({ isLoggedIn, user }) => {
                 classNames="home__createTask__transition"
                 unmountOnExit
               >
-                <div><CreateTask /></div>
+                <div>
+                  <CreateTask />
+                </div>
               </CSSTransition>
 
               <hr className="my-4" />
@@ -70,8 +65,12 @@ const Home = ({ isLoggedIn, user }) => {
                   </div>
                 ) : (
                   <div>
-                    <Tasks todos={todos.uncompleted} status={false} />
-                    <Tasks todos={todos.completed} status={true} />
+                    {props.tasks && (
+                      <>
+                        <Tasks tasks={props.tasks.uncompleted} status={false} />
+                        <Tasks tasks={props.tasks.completed} status={true} />
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -85,4 +84,11 @@ const Home = ({ isLoggedIn, user }) => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    tasks: state.tasks.items,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
