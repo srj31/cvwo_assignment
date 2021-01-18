@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     end
 
     def logout!
-        session.clear
+        session.destroy
     end
 
     def set_user

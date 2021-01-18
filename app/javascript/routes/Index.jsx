@@ -26,10 +26,8 @@ function Index() {
 
   const handleLogout = () => {
     const url = "/logout";
-    if (isLoggedIn) {
-      setIsLoggedIn(false);
-      setUser({});
-    }
+    setIsLoggedIn(false);
+    setUser({});
     const token = document.querySelector('meta[name="csrf-token"]').content;
 
     fetch(url, {
@@ -48,6 +46,7 @@ function Index() {
       })
       .then((response) => {
         console.log(response);
+        window.location.reload(false);
       })
       .catch((error) => console.log("Logout was not done correctly ", error));
   };

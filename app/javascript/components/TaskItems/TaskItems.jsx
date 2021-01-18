@@ -20,10 +20,11 @@ function TaskItems({ task, status, handleSubmit }) {
         throw new Error("Network response was not ok");
       })
       .then((response) => {
+        // console.log(response);
         setTags(response);
       })
       .catch(() => console.log("An error occurred while fetching the tags"));
-  }, []);
+  }, [task]);
 
   const handleChangeCompleted = (event) => {
     setNewTask({
@@ -181,7 +182,7 @@ function TaskItems({ task, status, handleSubmit }) {
             <div className="taskItems__body__deadline">
               {newTask.deadline && (<>Deadline: {moment(newTask.deadline).format("llll")}</>)}
             </div>
-            <Tags editing={editing} tags={tags} />
+            <Tags editing={editing} tags={tags} task_id={task.id} />
           </div>
           <div className="taskItems__links">
             <h6 className="btn btn-primary" onClick={handleEdit}>

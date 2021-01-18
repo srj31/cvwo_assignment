@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Tasks from "../Tasks/Tasks";
 import CreateTask from "../CreateTask/CreateTask.tsx";
 import "./Home.css";
-import IntroPage from "../IntroPage/IntroPage.tsx";
+import IntroPage from "../IntroPage/IntroPage.jsx";
 import { CSSTransition } from "react-transition-group";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "../../actions/taskActions";
@@ -21,6 +21,7 @@ const Home = ({ isLoggedIn, user, ...props }) => {
     dispatch(fetchTasks());
     setLoading(false);
   }, []);
+
 
   const addTodo = () => {
     setToAdd(!toAdd);
