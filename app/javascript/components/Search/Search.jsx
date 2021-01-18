@@ -36,12 +36,11 @@ function Search(props) {
         </div>
       ) : (
         <>
-        {console.log(tasks)}
           {tasks.tagged_tasks_uncompleted && (
-            <Tasks todos={tasks.tagged_tasks_uncompleted} status={false} />
+            <Tasks tasks={tasks.tagged_tasks_uncompleted} status={false} />
           )}
           {tasks.tagged_tasks_completed && (
-            <Tasks todos={tasks.tagged_tasks_completed} status={true} />
+            <Tasks tasks={tasks.tagged_tasks_completed} status={true} />
           )}
         </>
       )}
