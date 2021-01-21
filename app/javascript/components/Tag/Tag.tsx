@@ -82,12 +82,11 @@ const Tag: React.FC<TagProps> = ({ editing, tag }) => {
   };
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    
     history.push(`/api/v1/show/${newTag.name}`);
-  }
+  };
 
   return (
-    <div className="tag" onClick={handleClick}>
+    <div className="tag">
       {editing ? (
         <form onSubmit={handleSubmit} style={{ display: "flex" }}>
           <input
@@ -107,7 +106,7 @@ const Tag: React.FC<TagProps> = ({ editing, tag }) => {
         <>
           {!toDelete && (
             <div className="tag__body">
-              {newTag.name}
+              <div className="tag__body__name" onClick={handleClick}>{newTag.name}</div>
               <div className="tag__delete" onClick={deleteTag}>
                 x
               </div>
