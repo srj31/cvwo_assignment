@@ -9,11 +9,18 @@
   margin-right: 5px;
 }
 
+.tag__body:hover {
+  cursor: pointer;
+  border-bottom: 2px solid gainsboro;
+}
+
 .tag__delete {
   border-radius: 50px;
   margin-left: 10px;
 }
 
 .tag__delete:hover {
-  background-color: darkblue;
+  color: gray;
 }
+
+

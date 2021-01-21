@@ -23,7 +23,6 @@ function Tasks({ tasks, status }) {
       })
       .then((response) => {
         console.log(response);
-        // window.location.reload(false);
       })
       .catch(() => console.log("An error occurred while adding the todo item"));
   };

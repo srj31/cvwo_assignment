@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Tag.css";
 import { Tag } from "../types";
+import { useHistory } from "react-router-dom";
 
 interface TagProps {
   editing: boolean;
@@ -10,6 +11,7 @@ interface TagProps {
 const Tag: React.FC<TagProps> = ({ editing, tag }) => {
   const [newTag, setNewTag] = useState<Tag>(tag);
   const [toDelete, setToDelete] = useState(false);
+  const history = useHistory();
 
   const handleChangeTag = (event: React.FormEvent<HTMLInputElement>) => {
     setNewTag({
@@ -79,8 +81,13 @@ const Tag: React.FC<TagProps> = ({ editing, tag }) => {
     }
   };
 
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    
+    history.push(`/api/v1/show/${newTag.name}`);
+  }
+
   return (
-    <div className="tag">
+    <div className="tag" onClick={handleClick}>
       {editing ? (
         <form onSubmit={handleSubmit} style={{ display: "flex" }}>
           <input
