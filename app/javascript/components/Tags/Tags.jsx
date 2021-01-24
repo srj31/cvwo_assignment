@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Tag from "../Tag/Tag.tsx";
-import './Tags.css'
+import "./Tags.css";
 function Tags({ editing, tags, task_id }) {
-  const [addTag, setAddTag] = useState({name: ""});
+  const [addTag, setAddTag] = useState({ name: "" });
   const [toAdd, setToAdd] = useState(false);
   // const handleKeyDownAdd = (event) => {
   //   if (event.key === "Enter") {
@@ -23,7 +23,7 @@ function Tags({ editing, tags, task_id }) {
 
   const handleAdd = async (e) => {
     e?.preventDefault();
-    if (addTag.name==="") return ;
+    if (addTag.name === "") return;
     const url = `api/v1/tasks/${task_id}/tags`;
     const metaElement = document.querySelector('meta[name="csrf-token"]');
     const token = metaElement.content;
@@ -77,10 +77,15 @@ function Tags({ editing, tags, task_id }) {
         <button
           className="btn btn-success"
           onClick={handleClickAdd}
-          style={{ margin: 10, fontSize: 10 }}
+          style={{
+            margin: 10,
+            fontSize: 17,
+            borderRadius: 102,
+            padding: "0px 7px",
+          }}
         >
           {" "}
-          Add Tag{" "}
+          +{" "}
         </button>
       )}
     </div>

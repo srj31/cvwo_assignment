@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Tasks from "../Tasks/Tasks";
 import CreateTask from "../CreateTask/CreateTask.tsx";
 import "./Home.css";
 import IntroPage from "../IntroPage/IntroPage.jsx";
 import { CSSTransition } from "react-transition-group";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { fetchTasks } from "../../actions/taskActions";
 import store from "../../store";
 
 const Home = ({ isLoggedIn, user, ...props }) => {
-  const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
   const [toAdd, setToAdd] = useState(false);
-  const res = useSelector((state) => state.tasks);
-
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(fetchTasks());
+    store.dispatch(fetchTasks());
     setLoading(false);
   }, []);
-
 
   const addTodo = () => {
     setToAdd(!toAdd);

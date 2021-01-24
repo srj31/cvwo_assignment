@@ -103,7 +103,7 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
           throw new Error("Invalid Inputs");
         }
 
-        if (tag == null) return;
+        if (tag.name=="") return;
 
         const url2 = `/api/v1/tasks/${task.id}/tags`;
         fetch(url2, {
