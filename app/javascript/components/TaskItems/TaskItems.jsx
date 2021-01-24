@@ -154,48 +154,58 @@ function TaskItems({ task, status, handleSubmit }) {
       </div>
     </div>
   ) : (
-    <div className="taskItems__normal">
-      {toDelete ? (
-        <div style={{ display: "flex", justifyContent: "center", padding: 30 }}>
-          Deleted
-        </div>
-      ) : (
-        <div
-          className={`taskItems__section ${
-            newTask.completed
-              ? "taskItems__completed"
-              : "taskItems__uncompleted"
-          }`}
-        >
-          <div className="taskItems__checkbox">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              checked={newTask.completed}
-              id={`checkbox${newTask.id}`}
-              onChange={handleChangeCompleted}
-            />
+    <div className="taskItems">
+      <div className="taskItems__normal">
+        {toDelete ? (
+          <div
+            style={{ display: "flex", justifyContent: "center", padding: 30 }}
+          >
+            Deleted
           </div>
-          <div className="taskItems__header">{newTask.name}</div>
-          <div className="taskItems__body">
-            {newTask.description}
-            <div className="taskItems__body__deadline">
-              {newTask.deadline && (<>Deadline: {moment(newTask.deadline).format("llll")}</>)}
+        ) : (
+          <div
+            className={`taskItems__section ${
+              newTask.completed
+                ? "taskItems__completed"
+                : newTask.deadline
+                ? moment(newTask.deadline).isBefore(moment())
+                  ? "taskItems__overdue"
+                  : "taskItems__uncompleted"
+                : "taskItems__uncompleted"
+            }`}
+          >
+            <div className="taskItems__checkbox">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                checked={newTask.completed}
+                id={`checkbox${newTask.id}`}
+                onChange={handleChangeCompleted}
+              />
             </div>
-            <Tags editing={editing} tags={tags} task_id={task.id} />
+            <div className="taskItems__header">{newTask.name}</div>
+            <div className="taskItems__body">
+              {newTask.description}
+              <div className="taskItems__body__deadline">
+                {newTask.deadline && (
+                  <>Deadline: {moment(newTask.deadline).format("llll")}</>
+                )}
+              </div>
+              <Tags editing={editing} tags={tags} task_id={task.id} />
+            </div>
+            <div className="taskItems__links">
+              <h6 className="btn btn-primary" onClick={handleEdit}>
+                {" "}
+                Edit{" "}
+              </h6>
+              <h6 className="btn btn-danger" onClick={handleDelete}>
+                {" "}
+                Delete{" "}
+              </h6>
+            </div>
           </div>
-          <div className="taskItems__links">
-            <h6 className="btn btn-primary" onClick={handleEdit}>
-              {" "}
-              Edit{" "}
-            </h6>
-            <h6 className="btn btn-danger" onClick={handleDelete}>
-              {" "}
-              Delete{" "}
-            </h6>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
