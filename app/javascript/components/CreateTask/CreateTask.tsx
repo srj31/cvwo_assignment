@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import ErrorComp from "../ErrorComp/ErrorComp.tsx";
 import { Task, Tag, Error } from "../types";
 
@@ -6,7 +7,7 @@ interface CreateTaskProps {}
 
 const CreateTask: React.FC<CreateTaskProps> = () => {
   const [todo, setTodo] = useState({});
-  const [tag, setTag] = useState({name: ""});
+  const [tag, setTag] = useState({ name: "" });
   const [user, setUser] = useState({ id: -1 });
   const [errors, setErrors] = useState<Array<Error> | null>(null);
 
@@ -59,9 +60,9 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
   const handleChangeDeadline = (event: React.FormEvent<HTMLInputElement>) => {
     setTodo({
       ...todo,
-      deadline: event.currentTarget.value,
-    })
-  }
+      deadline: moment(event.currentTarget.value).utc(),
+    });
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -102,7 +103,7 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
           throw new Error("Invalid Inputs");
         }
 
-        if(tag == null) return;
+        if (tag == null) return;
 
         const url2 = `/api/v1/tasks/${task.id}/tags`;
         fetch(url2, {
@@ -160,7 +161,12 @@ const CreateTask: React.FC<CreateTaskProps> = () => {
           className="form-control-datetime-local mr-3 my-3 py-3"
           placeholder="Todo Deadline(Optional)"
           onChange={handleChangeDeadline}
-          style={{backgroundColor:"#272727",color:"#747474",width:"100%",border:"none"}}
+          style={{
+            backgroundColor: "#272727",
+            color: "#747474",
+            width: "100%",
+            border: "none",
+          }}
         />
         <input
           type="hidden"
