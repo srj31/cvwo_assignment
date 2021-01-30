@@ -26,9 +26,8 @@ const CalendarComp = ({}) => {
         for (let i = 0; i < uncompleted.length; i++) {
           event.push({
             title: uncompleted[i].name,
-            allDay: true,
-            start: uncompleted[i].deadline,
-            end: uncompleted[i].deadline,
+            start: new Date(uncompleted[i].deadline),
+            end: new Date(uncompleted[i].deadline),
           })
         }
 
@@ -42,11 +41,9 @@ const CalendarComp = ({}) => {
       <Calendar
         localizer={localizer}
         events={cal_events}
-        startAccessor="start"
-        endAccessor="end"
+        step = {120}
         style={{ height: 700, color: "#747474", width: "80%", position:"absolute",left:"10%" }}
       />
-      {console.log(cal_events)}
     </>
   );
 };

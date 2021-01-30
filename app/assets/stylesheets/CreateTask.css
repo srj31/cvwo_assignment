@@ -1,0 +1,4 @@
+.createTask__body {
+    transition-delay: 1s;
+    transition-timing-function: ease-in;
+}
