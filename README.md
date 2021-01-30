@@ -12,8 +12,8 @@ Matriculation Number: A0226598M
 ------------------------------------------------------------------------------------------------
 A TODO website built on Rails with React as frontend where you can tag tasks and search via tags and uses REST APIs
 
-Database: Postgres
-Frontend: React, Bootstrap, CSS
-Backend: Ruby on Rails, Redux
+Database: Postgres<br/>
+Frontend: React, Bootstrap, CSS<br/>
+Backend: Ruby on Rails, Redux<br/>
 
 To use Postgres locally, change username and password for the database in config/database.yml
