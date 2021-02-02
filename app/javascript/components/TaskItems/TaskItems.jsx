@@ -8,6 +8,7 @@ function TaskItems({ task, status, handleSubmit }) {
   const [newTask, setNewTask] = useState(task);
   const [tags, setTags] = useState({});
   const [toDelete, setToDelete] = useState(false);
+  const [add, setAdd] = useState(0);
 
   useEffect(() => {
     const url = `/api/v1/tasks/${task.id}/tags`;
@@ -24,7 +25,35 @@ function TaskItems({ task, status, handleSubmit }) {
         setTags(response);
       })
       .catch(() => console.log("An error occurred while fetching the tags"));
-  }, [task]);
+  }, [add]);
+
+  const handleAdd = async (e,addTag) => {
+    e.preventDefault();
+    if (addTag.name === "") return;
+    const url = `api/v1/tasks/${task.id}/tags`;
+    const metaElement = document.querySelector('meta[name="csrf-token"]');
+    const token = metaElement.content;
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(addTag),
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((response) => {
+        setAdd(add^1);
+      })
+      .catch(() => "Error occurred while editing the tag");
+  };
+
 
   const handleChangeCompleted = (event) => {
     setNewTask({
@@ -137,7 +166,7 @@ function TaskItems({ task, status, handleSubmit }) {
               border: "none",
             }}
           />
-          <Tags editing={editing} tags={tags} />
+          <Tags editing={editing} tags={tags} task_id={task.id} handleAdd={handleAdd} />
         </div>
         <div className="taskItems__links">
           <h6
@@ -191,7 +220,7 @@ function TaskItems({ task, status, handleSubmit }) {
                   <>Deadline: {moment(newTask.deadline).format("llll")}</>
                 )}
               </div>
-              <Tags editing={editing} tags={tags} task_id={task.id} />
+              <Tags editing={editing} tags={tags} task_id={task.id} handleAdd={handleAdd}/>
             </div>
             <div className="taskItems__links">
               <h6 className="btn btn-primary" onClick={handleEdit}>

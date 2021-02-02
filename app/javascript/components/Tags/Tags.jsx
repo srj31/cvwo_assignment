@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Tag from "../Tag/Tag.tsx";
 import "./Tags.css";
-function Tags({ editing, tags, task_id }) {
+function Tags({ editing, tags, task_id, handleAdd }) {
   const [addTag, setAddTag] = useState({ name: "" });
   const [toAdd, setToAdd] = useState(false);
   // const handleKeyDownAdd = (event) => {
@@ -21,32 +21,6 @@ function Tags({ editing, tags, task_id }) {
     setToAdd(true);
   };
 
-  const handleAdd = async (e) => {
-    e?.preventDefault();
-    if (addTag.name === "") return;
-    const url = `api/v1/tasks/${task_id}/tags`;
-    const metaElement = document.querySelector('meta[name="csrf-token"]');
-    const token = metaElement.content;
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "X-CSRF-Token": token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(addTag),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then((response) => {
-        setToAdd(false);
-      })
-      .catch(() => "Error occurred while editing the tag");
-  };
-
   return (
     <div className="tags">
       {/* {console.log(tags)} */}
@@ -56,7 +30,12 @@ function Tags({ editing, tags, task_id }) {
           return <Tag editing={editing} tag={tag} key={tag.id} />;
         })}
       {toAdd ? (
-        <form onSubmit={handleAdd} style={{ display: "flex" }}>
+        <form
+          onSubmit={(event) => {
+            handleAdd(event, addTag), setToAdd(false), setAddTag({ name: "" });
+          }}
+          style={{ display: "flex" }}
+        >
           <input
             type="text"
             className="form-control-plaintext"

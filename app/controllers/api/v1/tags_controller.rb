@@ -25,7 +25,7 @@ class Api::V1::TagsController < ApplicationController
     def create
         @task = current_user.tasks.find(params[:task_id])
         @tag = @task.tags.create(tag_params)
-        redirect_to api_v1_tasks_path
+        render json: {tag: @tag}
     end
 
     def update
